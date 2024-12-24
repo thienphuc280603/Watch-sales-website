@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{main/layout/admin.html::areas(~{::body})}">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>User Account</title>
+</head>
+
+<body>
+	<div class="product-watches__header section-header flex-row-center"  style="background-color: grey;">
+		<p class="flex-row-center" style="color: white; font-weight: bold;">
+			USER ACCOUNT
+		</p>
+		<div class="section-header-find-add flex-row-center">
+			<label class="find-container" for="watches-find" style="background-color: white;"> <i
+				class="fa-solid fa-magnifying-glass" style="color: #000000"></i>
+				<input id="searchInput" oninput="searchProducts()" type="text"/>
+			</label>
+		</div>
+	</div>
+	<div class="user-manager" style="height: 79%; overflow: hidden; ">
+		<div class="user-table" id="myTable">
+			<table>
+				<thead>
+					<tr>
+						<th class="col-1">User Id</th>
+						<th class="col-2">Fullname</th>
+						<th class="col-1">Gender</th>
+						<th class="col-2">Email</th>
+						<th class="col-2">Address</th>
+						<th class="col-2">Phone</th>
+						<th
+							th:if="${session.user.role == 'administer'}" class="col-2">Manager</th>
+						<th
+							th:if="${session.user.role == 'administer'}" class="col-2">Staff</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="user : ${users}" style="height: 40px">
+						<td th:text="${user.userId}"></td>
+						<td th:text="${user.fullName}"></td>
+						<td th:if="${user.gender} == true">Nam</td>
+						<td th:if="${user.gender} != true">Nữ</td>
+						<td th:text="${user.email}"></td>
+						<td th:text="${user.address}"></td>
+						<td th:text="${user.phone}"></td>
+						<td
+							th:if="${session.user.userId != user.userId and session.user.role == 'administer'}">
+							<a class="link-color" type="button" style="padding: 10px; border-radius: 5px; background-color: #539165; height: 20px; font-size: 10px; color: #ffffff !important"
+							th:href="@{/adm/userlist/change-role/{userId}/administer(userId=${user.userId})}">Quản
+								lý</a>
+						</td>
+						<td
+							th:if="${session.user.userId != user.userId and session.user.role == 'administer'}">
+							<a class="link-color" type="button" style="padding: 10px; border-radius: 5px; background-color: #3081D0; height: 20px; font-size: 10px; color: #ffffff !important"
+							th:href="@{/adm/userlist/change-role/{userId}/staff(userId=${user.userId})}">Nhân
+								viên</a>
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="products-product__footer user-manager-footer flex-row" style="opacity: 0; border-top: 2px solid var(--hover-bgc);">
+		<div class="product-footer__page-index">
+			Page: <span class="product-index-of">[[${currentPage +
+				1}]] of [[${totalPages}]] pages</span>
+		</div>
+		<div class="pagination">
+			<th:block th:each="page, stat : ${#numbers.sequence(0, totalPages - 1)}">
+				<span th:if="${currentPage} == ${stat.index}" th:text="${stat.index + 1}"></span>
+				<a th:if="${currentPage} != ${stat.index}" th:href="@{'/adm?page=' + ${stat.index}}"
+					th:text="${stat.index + 1}"></a>
+			</th:block>
+		</div>
+	</div>
+	
+	<script>
+    function searchProducts() {
+        // Lấy giá trị nhập vào từ ô tìm kiếm
+        var searchTerm = document.getElementById("searchInput").value.toLowerCase();
+
+        // Lặp qua từng dòng trong tbody
+        var tableBody = document.querySelector("table tbody");
+        var rows = tableBody.getElementsByTagName("tr");
+
+        for (var i = 0; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName("td");
+            var found = false;
+
+            // Lặp qua từng ô trong dòng để tìm kiếm
+            for (var j = 0; j < cells.length; j++) {
+                var cellText = cells[j].textContent.toLowerCase();
+
+                // Nếu tìm thấy từ khóa tìm kiếm trong ô, đặt found thành true và thoát khỏi vòng lặp
+                if (cellText.includes(searchTerm)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            // Ẩn hoặc hiển thị dòng dựa trên kết quả tìm kiếm
+            if (found) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+</script>
+	
+</body>
+
+</html>

@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Main Page</title>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/responsive.css" />
+    <!--  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/2016f2764d.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Dela+Gothic+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="container" id="main">
+      <div th:replace="~{/main/user/menu::hnav}"></div>
+      <div class="header-hidden" id="hidden">
+        <div class="header-hidden__find-container" id="up">
+          <div class="find-container__input">
+            <input type="text" placeholder="find something?" />
+            <button id="close">
+              <i class="fa-solid fa-xmark" style="color: #ffffff"></i>
+            </button>
+          </div>
+        </div>
+        <div class="find-container__recommend" id="down"></div>
+      </div>
+      <div class="video-container">
+        <video autoplay muted src="/video/watches-ads-video.mp4"></video>
+      </div>
+      <main>
+        <div class="sologan">
+          <h1>GOLDEN TIME</h1>
+          <p>Đến từ những nhãn hàng nổi tiếng</p>
+          <a th:href="@{|/more/2|}"> Khám Phá </a>
+        </div>
+        <div class="new-watches">
+          <div class="new-content">
+            <h2>Trending</h2>
+            <div class="swiper mySwiperNew">
+              <div class="swiper-wrapper">
+                <a class="swiper-slide new-card" th:href="@{|/chitiet/${item[7]}|}" th:each="item : ${listTrending}" th:if="${item[5] == 2}">
+                  <div class="new-card__img">
+                    <img th:src="@{|/image/${item[0]}|}" alt="" />
+                  </div>
+                  <div class="new-card__info">
+                    <h3 class="fs-larger" th:text="${item[1]}">
+                      
+                    </h3>
+                    <h4 class="fs-small" th:text="${item[6]}">brand</h4>
+                    <div class="bracelet-price">
+                <div style="display: flex; gap: 5px; align-items: center">
+                  <p th:if="${item[3] == 0}">[[${#numbers.formatDecimal(item[2], 0, 'COMMA', 0, 'POINT')}]] vnd</p>
+                  
+                  <p th:if="${item[3] != 0}">[[${#numbers.formatDecimal(item[3], 0, 'COMMA', 0, 'POINT')}]] vnd</p>
+                  <p
+                    style="
+                      font-size: clamp(8px, 0.8vw, 14px);
+                      text-decoration: line-through;
+                    "
+                  th:if="${item[3] != 0 }" >
+                   [[${#numbers.formatDecimal(item[2], 0, 'COMMA', 0, 'POINT')}]] vnd
+                  </p>
+                </div>
+                <i
+                  class="fa-solid fa-cart-flatbed fa-bounce"
+                  style="color: #000000"
+                ></i>
+              </div>
+                  </div>
+                </a>
+              </div>
+              <div
+                class="swiper-pagination new-pagi"
+                style="position: relative; margin-top: 35px"
+              ></div>
+            </div>
+          </div>
+        </div>
+        <div class="sale-watches">
+          <div class="sale-watches__title fs-larger">
+            <div class="left-head">
+              <h2>BEST SALES</h2>
+              <form action="" >
+              <button class="best-seller-more" formaction="/Products-discounts">Xem Thêm</button>
+              </form>
+            </div>
+          </div>
+          <div class="watches-container">
+            <a th:href="@{|/chitiet/${item[6]}|}" class="w-card" th:each="item: ${listTop10GG}" >
+              <p class="fs-small" th:text="${item[7]}"></p>
+              <p class="fs-small" th:text="${item[0]}"></p>
+              <img th:src="@{|/image/${item[4]}|}" alt="" />
+              <div class="card-bottom">
+                <p class="fs-small-x" th:text="${#numbers.formatDecimal(item[3], 0, 'COMMA', 0, 'POINT') + ' vnd'}"></p>
+                <div>
+                  <p class="fs-small-x"  th:text="${#numbers.formatDecimal(item[1], 0, 'COMMA', 0, 'POINT') + ' vnd'}"></p>
+                  <!-- <span class="fs-small-xx">([[${#numbers.formatDecimal(item[2]*100,
+									0, 0)}]]% )</span>-->
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="main-category">
+				<div class="main-category__title">
+					<p class="fs-larger-max">Các Nhãn Hàng Nổi Tiếng</p>
+				</div>
+				<div class="category-content">
+					<div class="swiper mySwiperCategory">
+						<div class="swiper-wrapper">
+							<div class="category-card swiper-slide">
+								<div class="category-card__image">
+									<video muted loop autoplay src="/video/casio-video.mp4"></video>
+								</div>
+								<div class="category-card__name fs-small">
+									<span>1946</span> <span><i class="fa-solid fa-globe"
+										style="color: #ffffff"></i>Fashion watches</span>
+								</div>
+								<div class="category-card__title">
+									<p class="fs-larger">Casio</p>
+								</div>
+								<div class="category-card__text">
+									<p class="fs-medium">Casio là một tập đoàn đa quốc gia của
+										Nhật Bản chuyên sản xuất điện tử tiêu dùng, đồng hồ và máy
+										tính. Casio được thành lập vào năm 1946 bởi Tadao Kashio, và
+										là một trong những công ty điện tử lớn nhất thế giới. Đồng hồ
+										Casio được biết đến với thiết kế thời trang, đa dạng, chất
+										lượng cao và giá cả phải chăng</p>
+								</div>
+								<div class="category-card__link">
+									<form action="">
+										<button class="fs-small" formaction="/more/type/Casio">View
+											Project &rarr;</button>
+									</form>
+								</div>
+							</div>
+							<div class="category-card swiper-slide">
+								<div class="category-card__image">
+									<img src="/image/CASIO Baby-G.jpeg" alt="" />
+								</div>
+								<div class="category-card__name fs-small">
+									<span>1994</span> <span><i class="fa-solid fa-globe"
+										style="color: #ffffff"></i>Fashion watches</span>
+								</div>
+								<div class="category-card__title">
+									<p class="fs-larger">Casio Baby-G</p>
+								</div>
+								<div class="category-card__text">
+									<p class="fs-medium">Baby-G là một dòng đồng hồ của Casio,
+										được lấy cảm hứng từ dòng sản phẩm G-shock dành cho nam, đồng
+										hồ Baby-G cũng được thiết kế với phong cách, kiểu dáng thể
+										thao, nhưng kích thước nhỏ hơn và màu sắc tươi mới hơn dành
+										cho các bạn nữ.</p>
+								</div>
+								<div class="category-card__link">
+									<form action="">
+										<button class="fs-small" formaction="/more/type/Baby-G">View
+											Project &rarr;</button>
+									</form>
+								</div>
+							</div>
+							<div class="category-card swiper-slide">
+								<div class="category-card__image">
+									<video autoplay muted loop src="/video/G-Shock.mp4"></video>
+								</div>
+								<div class="category-card__name fs-small">
+									<span>1983 </span> <span><i class="fa-solid fa-globe"
+										style="color: #ffffff"></i>Fashion watches</span>
+								</div>
+								<div class="category-card__title">
+									<p class="fs-larger">Casio G-Shock</p>
+								</div>
+								<div class="category-card__text">
+									<p class="fs-medium">Casio G-Shock là dòng đồng hồ chống va
+										đập được ra mắt vào năm 1983 bởi Casio. Dòng đồng hồ này được
+										thiết kế với khả năng chống va đập cao, giúp bảo vệ đồng hồ
+										khỏi những va đập mạnh. Casio G-Shock được biết đến với thiết
+										kế thể thao, mạnh mẽ, phù hợp với những người yêu thích thể
+										thao và hoạt động ngoài trời. Dòng đồng hồ này có nhiều mẫu mã
+										đa dạng, phù hợp với nhiều phong cách khác nhau.</p>
+								</div>
+								<div class="category-card__link">
+									<form action="">
+										<button class="fs-small" formaction="/more/type/Casio G-Shock">View
+											Project &rarr;</button>
+									</form>
+								</div>
+							</div>
+							<div class="category-card swiper-slide">
+								<div class="category-card__image">
+									<video height="300px" autoplay muted loop
+										src="/video/citizen.mp4"></video>
+								</div>
+								<div class="category-card__name fs-small">
+									<span>1918</span> <span><i class="fa-solid fa-globe"
+										style="color: #ffffff"></i>Fashion watches</span>
+								</div>
+								<div class="category-card__title">
+									<p class="fs-larger">Citizen</p>
+								</div>
+								<div class="category-card__text">
+									<p class="fs-medium">Citizen là một tập đoàn đa quốc gia
+										của Nhật Bản chuyên sản xuất đồng hồ, máy tính và các sản phẩm
+										điện tử tiêu dùng khác. Citizen được thành lập vào năm 1918
+										bởi Shoko Shozo Arii, và là một trong những công ty đồng hồ
+										lớn nhất thế giới. Đồng hồ Citizen được biết đến với chất
+										lượng cao, độ bền bỉ và nhiều tính năng tiện ích.</p>
+								</div>
+								<div class="category-card__link">
+									<form action="">
+										<button class="fs-small" formaction="/more/type/Citizen">View
+											Project &rarr;</button>
+									</form>
+								</div>
+							</div>
+							<div class="category-card swiper-slide">
+								<div class="category-card__image">
+									<video autoplay muted loop src="/video/elio.mp4"></video>
+								</div>
+								<div class="category-card__name fs-small">
+									<span>1998</span> <span><i class="fa-solid fa-globe"
+										style="color: #ffffff"></i>Fashion watches</span>
+								</div>
+								<div class="category-card__title">
+									<p class="fs-larger">Elio</p>
+								</div>
+								<div class="category-card__text">
+									<p class="fs-medium">Elio là một thương hiệu đồng hồ của
+										Việt Nam, được thành lập vào năm 1998. Elio chuyên sản xuất
+										đồng hồ thời trang, với thiết kế đa dạng, chất lượng cao và
+										giá cả phải chăng. Đồng hồ Elio được biết đến với thiết kế
+										thời trang, trẻ trung, phù hợp với nhiều phong cách khác nhau.
+										Dòng đồng hồ này có nhiều mẫu mã đa dạng, phù hợp với nhiều
+										đối tượng người dùng.</p>
+								</div>
+								<div class="category-card__link">
+									<form action="">
+										<button class="fs-small" formaction="/more/type/Elio">View
+											Project &rarr;</button>
+									</form>
+								</div>
+							</div>
+							<div class="category-card swiper-slide">
+								<div class="category-card__image">
+									<img src="/image/julius.jpeg" alt="" />
+								</div>
+								<div class="category-card__name fs-small">
+									<span>2003</span> <span><i class="fa-solid fa-globe"
+										style="color: #ffffff"></i>Fashion watches</span>
+								</div>
+								<div class="category-card__title">
+									<p class="fs-larger">Julius</p>
+								</div>
+								<div class="category-card__text">
+									<p class="fs-medium">Julius là một thương hiệu đồng hồ của
+										Singapore, được thành lập vào năm 2003. Julius chuyên sản xuất
+										đồng hồ thời trang, với thiết kế đa dạng, chất lượng cao và
+										giá cả phải chăng. Đồng hồ Julius được biết đến với thiết kế
+										thời trang, trẻ trung, phù hợp với nhiều phong cách khác nhau.
+										Dòng đồng hồ này có nhiều mẫu mã đa dạng, phù hợp với nhiều
+										đối tượng người dùng.</p>
+								</div>
+								<div class="category-card__link">
+									<form action="">
+										<button class="fs-small" formaction="/more/type/Julius">View
+											Project &rarr;</button>
+									</form>
+								</div>
+							</div>
+							<div class="category-card swiper-slide">
+								<div class="category-card__image">
+									<video autoplay muted loop src="/video/esprit.mp4"></video>
+								</div>
+								<div class="category-card__name fs-small">
+									<span>1968</span> <span><i class="fa-solid fa-globe"
+										style="color: #ffffff"></i>Fashion watches</span>
+								</div>
+								<div class="category-card__title">
+									<p class="fs-larger">Esprit</p>
+								</div>
+								<div class="category-card__text">
+									<p class="fs-medium">Esprit là một thương hiệu thời trang
+										của Mỹ, được thành lập vào năm 1968. Esprit chuyên sản xuất
+										đồng hồ, quần áo, phụ kiện và các sản phẩm thời trang khác.
+										Đồng hồ Esprit được biết đến với thiết kế thời trang, hiện
+										đại, phù hợp với nhiều phong cách khác nhau. Dòng đồng hồ này
+										có nhiều mẫu mã đa dạng, phù hợp với nhiều đối tượng người
+										dùng.</p>
+								</div>
+								<div class="category-card__link">
+									<form action="">
+										<button class="fs-small" formaction="/more/type/Esprit">View
+											Project &rarr;</button>
+									</form>
+								</div>
+							</div>
+							<div class="category-card swiper-slide">
+								<div class="category-card__image">
+									<video height="300px" autoplay muted loop
+										src="/video/orient.mp4"></video>
+								</div>
+								<div class="category-card__name fs-small">
+									<span>1901</span> <span><i class="fa-solid fa-globe"
+										style="color: #ffffff"></i>Fashion watches</span>
+								</div>
+								<div class="category-card__title">
+									<p class="fs-larger">Orient</p>
+								</div>
+								<div class="category-card__text">
+									<p class="fs-medium">Orient là một thương hiệu đồng hồ của
+										Nhật Bản, được thành lập vào năm 1901. Orient chuyên sản xuất
+										đồng hồ cơ khí, với thiết kế đa dạng, chất lượng cao và giá cả
+										phải chăng. Đồng hồ Orient được biết đến với thiết kế cổ điển,
+										sang trọng, phù hợp với những người yêu thích đồng hồ cơ khí.
+										Dòng đồng hồ này có nhiều mẫu mã đa dạng, phù hợp với nhiều
+										phong cách khác nhau.</p>
+								</div>
+								<div class="category-card__link">
+									<form action="">
+										<button class="fs-small" formaction="/more/type/Orient">View
+											Project &rarr;</button>
+									</form>
+								</div>
+							</div>
+							<div class="category-card swiper-slide">
+								<div class="category-card__image">
+									<img src="/image/Q&Q.jpeg" alt="" />
+								</div>
+								<div class="category-card__name fs-small">
+									<span>1971</span> <span><i class="fa-solid fa-globe"
+										style="color: #ffffff"></i>Fashion watches</span>
+								</div>
+								<div class="category-card__title">
+									<p class="fs-larger">Q&Q</p>
+								</div>
+								<div class="category-card__text">
+									<p class="fs-medium">Q&Q là một thương hiệu đồng hồ của
+										Nhật Bản, được thành lập vào năm 1971. Q&Q chuyên sản xuất
+										đồng hồ thời trang, với thiết kế đa dạng, chất lượng cao và
+										giá cả phải chăng. Đồng hồ Q&Q được biết đến với thiết kế thời
+										trang, trẻ trung, phù hợp với nhiều phong cách khác nhau. Dòng
+										đồng hồ này có nhiều mẫu mã đa dạng, phù hợp với nhiều đối
+										tượng người dùng.</p>
+								</div>
+								<div class="category-card__link">
+									<form action="">
+										<button class="fs-small" formaction="/more/type/Q&Q">View
+											Project &rarr;</button>
+									</form>
+								</div>
+							</div>
+							<div class="category-card swiper-slide">
+								<div class="category-card__image">
+									<video height="350px" autoplay muted loop
+										src="/video/roberto-cavalli.mp4"></video>
+								</div>
+								<div class="category-card__name fs-small">
+									<span>1972</span> <span><i class="fa-solid fa-globe"
+										style="color: #ffffff"></i>Fashion watches</span>
+								</div>
+								<div class="category-card__title">
+									<p class="fs-larger">Roberto Cavalli</p>
+								</div>
+								<div class="category-card__text">
+									<p class="fs-medium">Roberto Cavalli là một thương hiệu
+										thời trang cao cấp của Ý, được thành lập vào năm 1972 bởi
+										Roberto Cavalli. Roberto Cavalli chuyên sản xuất quần áo, phụ
+										kiện, nước hoa và đồng hồ. Đồng hồ Roberto Cavalli được biết
+										đến với thiết kế sang trọng, độc đáo, phù hợp với những người
+										yêu thích thời trang cao cấp. Dòng đồng hồ này có nhiều mẫu mã
+										đa dạng, phù hợp với nhiều phong cách khác nhau.</p>
+								</div>
+								<div class="category-card__link">
+									<form action="">
+										<button class="fs-small"
+											formaction="/more/type/Roberto Cavalli">View Project
+											&rarr;</button>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="swiper-pagination"></div>
+					</div>
+				</div>
+			</div>
+        <div class="bracelet-video">
+          <video autoplay muted loop src="/video/bracelet.mp4"></video>
+        </div>
+        <div class="main-bracelet">
+          <div class="main-bracelet__bgc">
+             <img src="/image/bcl1.jpg" alt="" /> 
+          </div>
+          <div class="main-bracelet__title">
+            <h2>BRACELETS</h2>
+            <a th:href="@{|/more/1|}">Toàn Bộ Sản Phẩm</a>
+          </div>
+          <div class="main-bracelet__container">
+           <!--  <a th:href="@{|/chitiet/${item[6]}|}" th:each="item : ${listBRACELETS}">
+              <div class="bracelet-image">
+                <img th:src="@{|/image/${item[4]}|}" alt="" />
+              </div>
+              <h5 th:text="${item[0]}">Ten san pham ten</h5>
+             <div class="bracelet-price">
+                <div style="display: flex; gap: 5px; align-items: center">
+                  <p>1.000.00$</p>
+                  <p
+                    style="
+                      font-size: clamp(8px, 0.8vw, 14px);
+                      text-decoration: line-through;
+                    "
+                  >
+                    1.000.00$
+                  </p>
+                </div>
+                <i
+                  class="fa-solid fa-cart-flatbed fa-bounce"
+                  style="color: #000000"
+                ></i>
+              </div>
+            </a> -->
+            <a th:href="@{|/chitiet/${item[6]}|}" th:each="item : ${listBRACELETS}" >
+              <div class="bracelet-image">
+                <img th:src="@{|/image/${item[4]}|}" alt="" />
+              </div>
+              <h5 th:text="${item[0]}">Ten san pham ten</h5>
+              <div class="bracelet-price">
+                <div style="display: flex; gap: 5px; align-items: center">
+                  <p th:if="${item[2] ==0 }"> [[${#numbers.formatDecimal(item[1], 0, 'COMMA', 0, 'POINT')}]] vnd</p>
+                  <p th:if="${item[2] !=0 }"> [[${#numbers.formatDecimal(item[3], 0, 'COMMA', 0, 'POINT')}]] vnd</p>
+                  <p
+                    style="
+                      font-size: clamp(8px, 0.8vw, 14px);
+                      text-decoration: line-through;
+                    "
+                  th:if="${item[2] != 0}">
+                     [[${#numbers.formatDecimal(item[1], 0, 'COMMA', 0, 'POINT')}]] vnd
+                  </p>
+                </div>
+                <i
+                  class="fa-solid fa-cart-flatbed fa-bounce"
+                  style="color: #000000"
+                ></i>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="main-ring">
+          <div class="main-ring__banner">
+            <div class="main-ring__banner-image">
+              <img src="/image/bracelet-banner-removebg-preview.png" alt="" />
+            </div>
+            <div class="main-ring__banner-sologan">
+              <div>
+                <p>R</p>
+                <p>I</p>
+                <p>N</p>
+                <p>G</p>
+                <p>S</p>
+              </div>
+              <h2>STYLES</h2>
+              <h2>FAMOUS</h2>
+              <div>
+                <p>x</p>
+                <p>x</p>
+                <p>x</p>
+                <p>x</p>
+                <p>x</p>
+              </div>
+            </div>
+            <div class="main-ring__banner-content">
+              <span>Rings</span>
+              <h2>Summer sale</h2>
+              <p>
+                Nhẫn là phụ kiện thời trang không thể thiếu, giúp bạn thêm phần
+                nổi bật và tự tin.
+              </p>
+              <a th:href="@{|/more/3|}">SHOP</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="main-ring">
+          <div class="main-ring__video">
+            <video autoplay muted loop src="/video/ring-video.mp4"></video>
+          </div>
+          <div class="main-ring__title">
+            <p class="main-ring__title-head">RINGS</p>
+            <p class="fs-small-x">
+              Nhẫn có nhiều kiểu dáng và chất liệu khác nhau, phù hợp với mọi
+              phong cách và sở thích. Nhẫn có thể được đeo ở nhiều vị trí khác
+              nhau trên tay, tùy theo ý thích của người đeo.
+            </p>
+            <button class="fs-small">tìm hiểu thêm</button>
+            <div class="main-ring__content">
+              <div class="swiper mySwiper3">
+                <div class="swiper-wrapper">
+                  <a href="#" class="swiper-slide ring-card">
+                    <div class="ring-content__card">
+                      <img src="/image/Q_Q-removebg-preview.png" alt="" />
+                      <div class="ring-card__info">
+                        <p class="fs-medium">Emerald Cut Diamonds Bracelet</p>
+                        <div class="ring-card__info-price fs-small">
+                          19.000.00
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#" class="swiper-slide ring-card">
+                    <div class="ring-content__card">
+                      <img src="/image/Q_Q-removebg-preview.png" alt="" />
+                      <div class="ring-card__info">
+                        <p class="fs-medium">Emerald Cut Diamonds Bracelet</p>
+                        <div class="ring-card__info-price fs-small">
+                          19.000.00
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#" class="swiper-slide ring-card">
+                    <div class="ring-content__card">
+                      <img src="/image/Q_Q-removebg-preview.png" alt="" />
+                      <div class="ring-card__info">
+                        <p class="fs-medium">Emerald Cut Diamonds Bracelet</p>
+                        <div class="ring-card__info-price fs-small">
+                          19.000.00
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#" class="swiper-slide ring-card">
+                    <div class="ring-content__card">
+                      <img src="/image/Q_Q-removebg-preview.png" alt="" />
+                      <div class="ring-card__info">
+                        <p class="fs-medium">Emerald Cut Diamonds Bracelet</p>
+                        <div class="ring-card__info-price fs-small">
+                          19.000.00
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#" class="swiper-slide ring-card">
+                    <div class="ring-content__card">
+                      <img src="/image/Q_Q-removebg-preview.png" alt="" />
+                      <div class="ring-card__info">
+                        <p class="fs-medium">Emerald Cut Diamonds Bracelet</p>
+                        <div class="ring-card__info-price fs-small">
+                          19.000.00
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#" class="swiper-slide ring-card">
+                    <div class="ring-content__card">
+                      <img src="/image/Q_Q-removebg-preview.png" alt="" />
+                      <div class="ring-card__info">
+                        <p class="fs-medium">Emerald Cut Diamonds Bracelet</p>
+                        <div class="ring-card__info-price fs-small">
+                          19.000.00
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <div class="ads">
+          <h5 class="fs-larger-max">Trang sức là một khoản đầu tư đáng giá</h5>
+          <p class="fs-small">
+           Đồng hồ và dây đeo của bạn nên kết hợp với nhau một cách hoàn hảo, nhưng điều đó không có nghĩa là bạn không thể thử nghiệm với các kết hợp khác nhau. Tại sao không trộn Mọi thứ lên và xem điều gì sẽ xảy ra? Bạn có thể khám phá ra một cái nhìn như cá nhân như bạn.
+
+
+          </p>
+          <form action="">
+          <button class="fs-larger" formaction="/more">Toàn Bộ Sản Phẩm</button>
+          </form>
+        </div>
+      </main>
+    </div>
+    <footer>
+      <div class="footer-social">
+        <p class="fs-larger">FOLLOW US</p>
+        <div class="footer-social__icon">
+          <i class="fa-brands fa-facebook" style="color: #000000"></i>
+          <i class="fa-brands fa-instagram" style="color: #000000"></i>
+          <i class="fa-brands fa-youtube" style="color: #000000"></i>
+          <i class="fa-brands fa-twitter" style="color: #000000"></i>
+          <i class="fa-brands fa-pinterest" style="color: #000000"></i>
+          <i class="fa-brands fa-weibo" style="color: #000000"></i>
+          <i class="fa-brands fa-weixin" style="color: #000000"></i>
+        </div>
+      </div>
+      <div th:replace="~{/main/user/footer::footer}"></div>
+      <div class="footer-bottom">
+        <p class="fs-small-x">Copyright OMEGA SA. All rights reserved.</p>
+      </div>
+    </footer>
+    <script src="/js/app.js"></script>
+    <script src="/js/shopping-cart-app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+      const nav = document.querySelector(".nav");
+      let lastScrollY = window.scrollY;
+
+      window.addEventListener("scroll", () => {
+        if (lastScrollY < window.scrollY) {
+          nav.classList.add("nav--hidden");
+        } else {
+          nav.classList.remove("nav--hidden");
+        }
+
+        lastScrollY = window.scrollY;
+      });
+
+      var swiper = new Swiper(".mySwiper", {
+        pagination: {
+          el: ".swiper-pagination",
+          type: "progressbar",
+        },
+        autoplay: 6000,
+        pauseOnHover: true,
+      });
+      var swiper = new Swiper(".mySwiper2", {
+        slidesPerView: 5,
+        spaceBetween: 30,
+        freeMode: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+      });
+      var swiper = new Swiper(".mySwiper3", {
+        spaceBetween: 5,
+        breakpoints: {
+          1200: {
+            slidesPerView: 4,
+          },
+          600: {
+            slidesPerView: 3,
+          },
+          450: {
+            slidesPerView: 2,
+          },
+        },
+      });
+      // autoplay: true,
+      // autoplayTimeout: 5010,
+      // autoplayDirection: "horizontal",
+      // autoplayLoop: true,
+      var swiperNew = new Swiper(".mySwiperNew", {
+        spaceBetween: 1,
+        breakpoints: {
+          1200: {
+            slidesPerView: 5,
+          },
+          800: {
+            slidesPerView: 4,
+          },
+          600: {
+            slidesPerView: 3,
+          },
+          390: {
+            slidesPerView: 2,
+          },
+          320: {
+            slidesPerView: 2,
+          },
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+      });
+
+      var mySwiperCategory = new Swiper(".mySwiperCategory", {
+        spaceBetween: 10,
+        slidesPerView: 4,
+        breakpoints: {
+          900: {
+            slidesPerView: 4,
+          },
+          600: {
+            slidesPerView: 3,
+          },
+          400: {
+            slidesPerView: 2,
+          },
+          320: {
+            slidesPerView: 2,
+          },
+          200: {
+            slidesPerView: 1,
+          },
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+      });
+
+      var mySwiperBracelet = new Swiper(".mySwiperBracelet", {
+        spaceBetween: 5,
+        slidesPerView: 6,
+        breakpoints: {
+          900: {
+            slidesPerView: 5,
+          },
+          600: {
+            slidesPerView: 4,
+          },
+          400: {
+            slidesPerView: 3,
+          },
+          320: {
+            slidesPerView: 2,
+          },
+        },
+      });
+
+      const userHiddenContainer = document.getElementById("user-hidden");
+      function OpenUserInfo() {
+        userHiddenContainer.style.display = "flex";
+      }
+
+      function CloseUserInfo() {
+        userHiddenContainer.style.display = "none";
+      }
+    </script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+  </body>
+</html>

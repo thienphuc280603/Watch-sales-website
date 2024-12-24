@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+th:replace="~{main/layout/admin.html::areas(~{::body})}">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Size Details</title>
+
+</head>
+
+<body>
+	<div class="product-watches__header section-header flex-row-center">
+		<p class="flex-row-center">products size controller table detail</p>
+		<div class="section-header-find-add flex-row-center">
+			<button class="flex-row-center">Back</button>
+		</div>
+	</div>
+	<div class="edit-container size-edit-container flex-row">
+		<form class="flex-colunm" th:object="${size}" method="post" action=""
+			style="width: 50%">
+			<input type="text" hidden th:field="*{sizeId}" /><br> <label>Size</label>
+			<input type="text" th:field="*{size}" /><br> <label>Thuộc
+				Product</label> <input type="text" th:field="*{product.name}" /><br>
+			<div class="buttons flex-row">
+				<button formaction="/adm/size/update">Update</button>
+				<button formaction="/adm/size/create">Create</button>
+				<button formaction="/adm/size/clear">Clear</button>
+			</div>
+		</form>
+	</div>
+</body>
+
+
+</html>

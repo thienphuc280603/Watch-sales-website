@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Main Page</title>
+	<link rel="stylesheet" href="/css/reset.css" />
+	<link rel="stylesheet" href="/css/style.css" />
+	<link rel="stylesheet" href="/css/responsive.css" />
+	<!--  -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+	<script src="https://kit.fontawesome.com/2016f2764d.js" crossorigin="anonymous"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+		rel="stylesheet" />
+	<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<style type="text/css">
+		header {
+			position: relative;
+			box-shadow: 0px -6px 17px 1px #555;
+		}
+
+		.header-list i {
+			color: #fff !important;
+		}
+	</style>
+
+</head>
+
+<body>
+	<div class="container" id="main">
+		<div th:replace="~{/main/user/menu::hnav}"></div>
+		<div class="header-hidden" id="hidden">
+			<div class="header-hidden__find-container" id="up">
+				<div class="find-container__input">
+					<input type="text" placeholder="find something?" />
+					<button id="close">
+						<i class="fa-solid fa-xmark" style="color: #ffffff"></i>
+					</button>
+				</div>
+			</div>
+			<div class="find-container__recommend" id="down"></div>
+		</div>
+	</div>
+
+	<div class="more-container">
+		<div class="more-container__filter">
+			<div class="more-filter__title">
+				<p>[[${sum}]] sản phẩm</p>
+				<form action="">
+					<button formaction="/resetFilter">
+						<i class="fa-solid fa-x" style="color: #000000"></i>reset
+					</button>
+				</form>
+			</div>
+			<div class="more-filter__gender">
+				<h3>Category</h3>
+				<ul>
+					<li th:each="item : ${listCate}"><a th:href="@{|/more/${item[1]}|}">[[${item[0]}]]</a></li>
+				</ul>
+			</div>
+			<div class="more-filter__brand">
+				<h3>Brand</h3>
+				<ul>
+					<li th:each="item : ${listBrand}"><a th:href="@{|/filterBrand/${item[0]}|}">[[${item[0]}]]</a></li>
+				</ul>
+			</div>
+			<div class="more-filter__category">
+				<h3>Gender</h3>
+				<ul>
+					<li th:each="item : ${listGen}"><a
+							th:href="@{|/filterGender/${item.gender}|}">[[${item.gender}]]</a></li>
+				</ul>
+			</div>
+			<div class="more-filter__color">
+				<h3>Color</h3>
+				<ul>
+					<li th:each="item : ${listColor}"><a th:href="@{|/filterColor/${item[0]}|}">[[${item[0]}]]</a></li>
+				</ul>
+			</div>
+			<div class="more-filter__size">
+				<h3>Size</h3>
+				<ul>
+					<li th:each="item : ${listsize}"><a th:href="@{|/filterSize/${item[0]}|}">[[${item[0]}]] mm</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="more-container__main">
+			<a th:href="@{|/chitiet/${item[6]}|}" class="more-card" th:each="item : ${listvt}">
+				<div class="more-card__img">
+					<img th:src="@{|/image/${item[4]}|}" alt="" />
+				</div>
+				<div class="more-card__info">
+					<div class="info-name">[[${item[0]}]]</div>
+					<div class="info-price" style="
+                display: flex;
+                justify-content: space-around;
+                
+                align-items: center;
+              ">
+						<p th:if="${item[2] == 0}">[[${#numbers.formatDecimal(item[1], 0, 'COMMA', 0, 'POINT')}]] vnd</p>
+						<p th:if="${item[2] != 0}">[[${#numbers.formatDecimal(item[3], 0, 'COMMA', 0, 'POINT')}]] vnd</p>
+						<span style="
+                  text-decoration: line-through;
+                  font-size: clamp(5px, 0.7vw, 14px);
+                  margin: auto 3px;
+                  color: rgb(184, 33, 33);
+                " th:if="${item[2] != 0}">[[${#numbers.formatDecimal(item[3], 0, 'COMMA', 0, 'POINT')}]] vnd</span>
+					</div>
+				</div>
+		</div>
+		</a>
+	</div>
+	</div>
+	<footer>
+		<div class="footer-social">
+			<p class="fs-larger">FOLLOW US</p>
+			<div class="footer-social__icon">
+				<i class="fa-brands fa-facebook" style="color: #000000"></i>
+				<i class="fa-brands fa-instagram" style="color: #000000"></i>
+				<i class="fa-brands fa-youtube" style="color: #000000"></i>
+				<i class="fa-brands fa-twitter" style="color: #000000"></i>
+				<i class="fa-brands fa-pinterest" style="color: #000000"></i>
+				<i class="fa-brands fa-weibo" style="color: #000000"></i>
+				<i class="fa-brands fa-weixin" style="color: #000000"></i>
+			</div>
+		</div>
+		<div th:replace="~{/main/user/footer::footer}"></div>
+		<div class="footer-bottom">
+			<p class="fs-small-x">Copyright OMEGA SA. All rights reserved.</p>
+		</div>
+	</footer>
+	<script src="/js/app.js"></script>
+	<script src="/js/shopping-cart-app.js"></script>
+</body>
+
+</html>

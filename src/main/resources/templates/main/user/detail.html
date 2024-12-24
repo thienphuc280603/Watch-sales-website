@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Main Page</title>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/responsive.css" />
+    <!--  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/2016f2764d.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style type="text/css">
+     	header{
+    		position: relative; 
+    		background-color: #000;
+    		box-shadow: 0px -6px 17px 1px #555;
+    	}
+    	
+		.header-list i {
+			color: #fff !important;
+		}
+    </style>
+  </head>
+  <body  ng-app="app" ng-controller="myctrl">
+    <div class="container" id="main">
+      <div th:replace="~{/main/user/menu::hnav}"></div>
+		<!-- <div th:replace="~{/main/user/menu::cart}"></div> -->
+      <main id="detail-page">
+        <div class="main-detail">
+          <div class="main-detail-product">
+            <div class="detail-product__img-option">
+            <button th:each="item : ${detailsp}" onclick="changeImage(this)">
+                <img th:src="@{|/image/${item[4]}|}" alt="" />
+              </button>
+              <button th:each="item : ${allimage}" onclick="changeImage(this)">
+                <img th:src="@{|/image/${item[0]}|}" alt="" />
+              </button>
+            </div>
+            <div class="detail-product__img-display" th:each="item : ${detailsp}">
+              <img th:src="@{|/image/${item[4]}|}" alt="" />
+              <!-- <img src="/image/remove-bgc1.png" alt="" /> -->
+            </div>
+          </div>
+          <div class="main-detail-info" th:each="item : ${detailsp}">
+            <h2 class="detail-info__name fs-larger-max">
+              [[${item[0]}]]
+            </h2>
+            <p class="detail-info__price fs-larger" th:if="${item[2]!= null}">
+              [[${#numbers.formatDecimal(item[3], 0, 'COMMA', 0, 'POINT')}]] vnd
+              <span class="detail-info__price-reduce fs-larger"
+                >[[${#numbers.formatDecimal(item[1], 0, 'COMMA', 0, 'POINT')}]] vnd
+                 ([[${#numbers.formatDecimal(item[2]*100, 0, 0)}]]% Off)</span
+              >
+            </p>
+             <p class="detail-info__price" th:if="${item[2]== null}">
+              [[${item[1]}]]
+            </p>
+            <p class="detail-info__brand fs-medium">OMEGA</p>
+            <p class="detail-info__desc fs-medium">
+             [[${item[6]}]]
+            </p>
+            <div class="overlay"
+						style="position: fixed; top: 40%; left: 40%; width: 500px; height: 200px;; background-color: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; border-radius: 15px; z-index: 999;">
+
+						<p class="added-message"
+							style="color: #42ff72; font-size: 20px; padding: 10px 20px; border-radius: 5px; display: none; margin-top: 75px; margin-left: 15px; font-size: 30px;">
+							<i class="fa fa-check" aria-hidden="true"
+								style="display: inline-block; width: 30px; height: 30px; border-radius: 50%; background-color: #42ff72; text-align: center; line-height: 30px; color: #fff;"></i>
+							Đã thêm vào giỏ hàng
+						</p>
+					</div>
+					
+								<!-- Nếu đã đăng nhập, cho phép thêm vào giỏ hàng -->
+					
+			<th:block th:if="${item[9]} < 1">
+				<div style="text-align: center;">
+					<h4 >Sảm phẩm này tạm thời hết hàng.</h4>
+					<h4 >Liên hệ hotline để được tư vấn, hỗ trợ - Hoặc quay trở lại sau.</h4>
+					<h4 style="color: red">Mong quý khách hàng thông cảm vì sự bất tiện này!</h4>
+				</div>
+				
+			</th:block>	
+			<th:block th:if="${item[9]} > 0">
+				<button th:attr="ng-click=@{|cart.add(${item[7]})|}">Shop in Store</button>
+			</th:block>
+            <div class="line"></div>
+            <div class="detail-info__icon">
+              <div class="detail-icon">
+                <i class="fa-solid fa-truck" style="color: #000000"></i>
+                <span>FREE DELIVERY & RETURN</span>
+              </div>
+              <div class="detail-icon">
+                <i class="fa-solid fa-box" style="color: #000000"></i>
+                <span>PREMIUM PACKAGING</span>
+              </div>
+              <div class="detail-icon">
+                <i class="fa-solid fa-shield-halved" style="color: #000000"></i>
+                <span>AUTHENTIC AND CERTIFIED WATCHES</span>
+              </div>
+            </div>
+            <div class="line"></div>
+            <div class="detail-info__another-color">
+              <p class="fs-medium">Có Thể Bạn Sẽ Thích</p>
+              <div class="swiper mySwiper" >
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide"  th:each="item : ${sameProducts}">
+                  	<form action="" >
+	                    <a th:href="@{|/chitiet/${item[6]}|}"  class="swiper-slide">
+	                      <img th:src="@{|/image/${item[4]}|}" alt="" />
+	                    </a>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+        <footer style="margin: 0">
+      <div class="footer-social">
+        <p class="fs-larger">FOLLOW US</p>
+        <div class="footer-social__icon">
+          <i class="fa-brands fa-facebook" style="color: #000000"></i>
+          <i class="fa-brands fa-instagram" style="color: #000000"></i>
+          <i class="fa-brands fa-youtube" style="color: #000000"></i>
+          <i class="fa-brands fa-twitter" style="color: #000000"></i>
+          <i class="fa-brands fa-pinterest" style="color: #000000"></i>
+          <i class="fa-brands fa-weibo" style="color: #000000"></i>
+          <i class="fa-brands fa-weixin" style="color: #000000"></i>
+        </div>
+      </div>
+      <div th:replace="~{/main/user/footer::footer}"></div>
+      <div class="footer-bottom">
+        <p class="fs-small-x">Copyright OMEGA SA. All rights reserved.</p>
+      </div>
+    </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+	    var swiper = new Swiper(".mySwiper", {
+	        slidesPerView: "auto",
+	        slidesPerView: 5,
+	        breakpoints: {
+	          900: {
+	            slidesPerView: 5,
+	          },
+	          600: {
+	            slidesPerView: 4,
+	          },
+	          400: {
+	            slidesPerView: 3,
+	          },
+	          320: {
+	            slidesPerView: 3,
+	          },
+	          200: {
+	            slidesPerView: 3,
+	          },
+	        },
+	      });
+    </script>
+    <script>
+       function changeImage(element) {
+         var imgDisplay = document.querySelector(
+           ".detail-product__img-display img"
+         );
+         imgDisplay.src = element.querySelector("img").src;
+       }
+       function resetCart(element) {
+    	    // Chờ 2 giây trước khi làm mới trang
+    	    setTimeout(function () {
+    	        window.location.reload();
+    	    }, 5000); // 2000 milliseconds = 2 seconds
+    	}
+     </script>
+    <script src="/js/app.js"></script>
+    <script th:src="@{/js/effect.js}"></script>
+	<script src="/js/shopping-cart-app.js"></script>
+  </body>
+</html>

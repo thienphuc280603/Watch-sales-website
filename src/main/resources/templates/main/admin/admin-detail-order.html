@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{main/layout/admin.html::areas(~{::body})}">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Deatail Order</title>
+</head>
+
+<body>
+
+	<div class="main-content">
+		<div id="bill" class="section">
+			<div class="bill-table">
+				<p style="text-align: center;">Detail Bill Of <span style="font-weight: bold; color: red;"
+						th:text="${order.user.fullName}"></span></p>
+						<br>
+						
+				<p style="text-align: center;">Address: <span style="font-weight: bold; color: black;"
+						th:text="${order.address}"></span></p>
+				<hr />
+				<table style="text-align: center;">
+					<thead>
+						<tr>
+							<th class="col-3">Image</th>
+							<th class="col-6">Name</th>
+							<th class="col-1">Quantity</th>
+							<th class="col-2">Price</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="item : ${itemList}">
+							<td class="col-3"><img style="width: 300px;"
+									th:src="@{|/image/${item.product.images[0].name}|}" alt="" class="img-fluid" /></td>
+							<td class="col-6" th:text="${item.product.name}"></td>
+							<td class="col-1" th:text="${item.quantity}"></td>
+							<td class="col-2"
+								th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></td>
+
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
+
+
+</body>
+
+</html>

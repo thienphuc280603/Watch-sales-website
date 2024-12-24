@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 
+</head>
+<body  ng-app="app" ng-controller="myctrl">
+	<div th:each="tran : ${tran}">
+		<h1 th:text="${tran.status}"></h1>
+		<h3 th:text="${tran.message}"></h3>
+	    <a href="/"><button class="cart-button" >Xac Nhan</button></a>
+	</div>
+</body >
+  <script src="/js/app.js"></script>
+    <script th:src="@{/js/effect.js}"></script>
+	<script src="/js/shopping-cart-app.js"></script>
+</html>

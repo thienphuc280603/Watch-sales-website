@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<div class="footer-main" th:fragment="footer">
+			<div class="footer-main__watch">
+				<div class="footer-main__watch-name fs-small">Casio</div>
+				<div class="footer-main__watch-product-name">
+					<a th:each="item : ${listcasio}" th:href="@{|/chitiet/${item[6]}|}" >[[${item[0]}]]</a>
+				</div>
+			</div>
+			<div class="footer-main__watch">
+				<div class="footer-main__watch-name fs-small">Casio Baby-G</div>
+				<div class="footer-main__watch-product-name">
+					<a th:each="item : ${listGShock}" th:href="@{|/chitiet/${item[6]}|}" >[[${item[0]}]]</a>
+				</div>
+			</div>
+			<div class="footer-main__watch">
+				<div class="footer-main__watch-name fs-small">Casio G-Shock</div>
+				<div class="footer-main__watch-product-name">
+					<a th:each="item : ${listGShock}" th:href="@{|/chitiet/${item[6]}|}" >[[${item[0]}]]</a>
+				</div>
+			</div>
+			<div class="footer-main__watch">
+				<div class="footer-main__watch-name fs-small">Citizen</div>
+				<div class="footer-main__watch-product-name">
+					<a th:each="item : ${listCitizen}" th:href="@{|/chitiet/${item[6]}|}" >[[${item[0]}]]</a>
+				</div>
+			</div>
+			<div class="footer-main__watch">
+				<div class="footer-main__watch-name fs-small">Elio</div>
+				<div class="footer-main__watch-product-name">
+					<a th:each="item : ${listElio}" th:href="@{|/chitiet/${item[6]}|}" >[[${item[0]}]]</a>
+				</div>
+			</div>
+			<div class="footer-main__watch">
+				<div class="footer-main__watch-name fs-small">Julius</div>
+				<div class="footer-main__watch-product-name">
+					<a th:each="item : ${listJulius}" th:href="@{|/chitiet/${item[6]}|}" >[[${item[0]}]]</a>
+				</div>
+			</div>
+			<div class="footer-main__watch">
+				<div class="footer-main__watch-name fs-small">Esprit</div>
+				<div class="footer-main__watch-product-name">
+					<a th:each="item : ${listEsprit}" th:href="@{|/chitiet/${item[6]}|}" >[[${item[0]}]]</a>
+				</div>
+			</div>
+			<div class="footer-main__watch">
+				<div class="footer-main__watch-name fs-small">Orient</div>
+				<div class="footer-main__watch-product-name">
+					<a th:each="item : ${listOrient}" th:href="@{|/chitiet/${item[6]}|}" >[[${item[0]}]]</a>
+				</div>
+			</div>
+			<div class="footer-main__watch">
+				<div class="footer-main__watch-name fs-small">Q&Q</div>
+				<div class="footer-main__watch-product-name">
+					<a th:each="item : ${listQQ}" th:href="@{|/chitiet/${item[6]}|}" >[[${item[0]}]]</a>
+				</div>
+			</div>
+			<div class="footer-main__watch">
+				<div class="footer-main__watch-name fs-small">Roberto Cavalli</div>
+				<div class="footer-main__watch-product-name">
+					<a th:each="item : ${listRobertoCavalli}" th:href="@{|/chitiet/${item[6]}|}" >[[${item[0]}]]</a>
+				</div>
+			</div>
+		</div>
+</html>

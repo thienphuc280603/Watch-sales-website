@@ -1,0 +1,168 @@
+.container {
+  height: 100vh;
+  background-color: var(--secondary-color);
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 3vw;
+  z-index: 10;
+  position: relative;
+  box-shadow: -1px -3px 4px 1px black;
+}
+header .header-logo {
+  height: 60px;
+}
+header .header-logo img {
+  width: 100%;
+  height: 100%;
+}
+header .header-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header .header-menu ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style-type: none;
+  gap: 1vw;
+  padding: 0;
+}
+header .header-user {
+  display: flex;
+  align-items: center;
+  gap: 1.5vw;
+}
+header .header-user .header-user__find {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+  position: relative;
+}
+header .header-user .header-user__find input {
+  border-radius: 3px;
+  border: 1px solid black;
+  position: absolute;
+  right: 110%;
+  bottom: auto;
+  transition: bottom 0.3s ease;
+  display: none;
+}
+header .header-user .header-user__find .find-button {
+  display: inline-block;
+  border: 1px solid rgb(65, 65, 65);
+  min-width: 70px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 5px;
+  font-size: small;
+  font-weight: bold;
+}
+header .header-user .header-user__find .find-button {
+  box-shadow: 2px 2px 0px 0px rgb(65, 65, 65);
+  display: flex;
+  align-items: center;
+}
+
+/*  */
+header .header-user .header-user__button {
+  display: flex;
+  gap: 15px;
+  margin-top: 6px;
+}
+header .header-user .header-user__button i {
+  font-size: 20px;
+}
+/* find */
+.find-container {
+  background-color: #c5c5c541;
+  height: 0;
+  width: 100%;
+  top: auto;
+  transition: all 0.5s ease;
+  position: absolute;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  position: relative;
+}
+#close__find-container {
+  position: absolute;
+  transform: translateX(-50%);
+  transition: all 0.3s linear;
+  top: 0;
+}
+.flex-center {
+  position: relative;
+}
+#close__find-container {
+  position: absolute;
+  right: -10%;
+}
+#close__find-container .close-text {
+  text-decoration: underline;
+}
+.find-container .find-container__input {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease;
+}
+.find-container .find-container__input .input-div {
+  width: 100%;
+  display: flex;
+  position: relative;
+  background-color: white;
+  padding: 15px 20px;
+  border-radius: 20px;
+}
+.find-container .find-container__input .input-div input {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid black;
+}
+.find-container .find-box__history .find-history {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.find-container .find-box__history .find-history a {
+  color: white;
+  margin: 0;
+  background-color: #534e4e;
+  font-size: small;
+  padding: 3px 10px;
+  border-radius: 10px;
+}
+.find-container .find-box__recommend .find-card__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 200px;
+  gap: 15px;
+  width: 100%;
+}
+.find-container .find-box__recommend .find-card__container .card {
+  grid-column: 1fr;
+  position: relative;
+  background-color: black;
+}
+.find-container .find-box__recommend .find-card__container .card .card-name {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  bottom: 0;
+  color: white;
+  padding: 10px;
+  background-color: #ffffff30;
+}
+.find-container .find-box__recommend .card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

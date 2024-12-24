@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{main/layout/admin.html::areas(~{::body})}">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Size</title>
+</head>
+
+<body>
+	<div class="product-watches__header section-header flex-row-center">
+		<p class="flex-row-center">
+			products sise controller table 
+		</p>
+		<div class="section-header-find-add flex-row-center">
+			<label class="find-container" for="watches-find"> <i
+				class="fa-solid fa-magnifying-glass" style="color: #000000"></i>
+				<input id="searchInput" onchange="searchProducts()" type="text" placeholder="search product" />
+			</label>
+			<button class="flex-row-center">
+				add <i class="fa-solid fa-plus" style="color: #000000"></i>
+			</button>
+		</div>
+	</div>
+	<div class="products-watches__table products-table">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Productid</th>
+					<th scope="col">Size</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody id="productTableBody">
+				<tr th:each="size : ${listSize}">
+					<td th:text="${size.sizeId}" hidden></td>
+					<td th:text="${size.product.name}"></td>
+					<td th:text="${size.size}"></td>
+					<td><a class="link-color" th:href="@{|/adm/editSize/${size.sizeId}|}">Edit <i class="fa-solid fa-pen-to-square" style="color: #000000;"></i></a></td>
+					<td><a th:href="@{|/adm/deleteSize/${size.sizeId}|}">Delete <i class="fa-solid fa-delete-left" style="color: #000000;"></i></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="product-nav flex-row">
+		<div class="product-footer__page-index">
+			page index: <span class="product-index-of"><span th:text="${sizePage.number}"></span> of <span th:text="${sizePage.totalPages}"></span> pages</span>
+		</div>
+		
+		<div th:if="${sizePage.totalPages > 1}">
+		<ul class="pagination" style="display: flex;">
+			<li th:if="${sizePage.hasPrevious}" class="page-item">
+				<a th:href="@{|/adm/size?page=1|}" class="page-link"><i
+                      class="fa-solid fa-backward-step"
+                      style="color: #000000"
+                    ></i></a>
+			</li>
+			<li th:if="${sizePage.hasPrevious}" class="page-item">
+				<a th:href="@{|/adm/size?page=${sizePage.number - 1}|}" class="page-link"><i class="fa-solid fa-backward" style="color: #000000"></i></a>
+			</li>
+
+			<a th:href="@{|/adm/size?page=${sizePage.number + 1}|}" class="page-link"><i class="fa-solid fa-forward" style="color: #000000"></i></a>
+			</li>
+			<li th:if="${sizePage.hasNext}" class="page-item">
+				<a th:href="@{|/adm/size?page=${sizePage.totalPages}|}" class="page-link"><i
+                      class="fa-solid fa-forward-step"
+                      style="color: #000000"
+                    ></i></a>
+			</li>
+		</ul>
+	</div>
+		
+	</div>
+	
+</body>
+
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{main/layout/admin.html::areas(~{::body})}">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Main Page</title>
+
+</head>
+
+<body>
+	<div class="edit-container flex-column">
+		<form th:object="${editProductAdmin}" method="post" action="" class="detail-product-form flex-column"
+			id="uploadForm" enctype="multipart/form-data">
+			
+			<div class="flex-row detail-product-form__box ">
+				<div class="detail-product__left flex-column">
+				
+					<img th:src="@{|/image/${editProductAdmin.image}|}" alt="Image" width="500px" height="390px" />
+					
+					<div class="flex-row" style="justify-content: space-between; margin-top: 5px">
+						<input type="file" name="file" accept="image/*" id="imageFileInput">
+					</div>
+				</div>
+				<div class="detail-product__right">
+					<input type="text" hidden th:field="*{productsId}" />
+					<input th:field="*{image}" id="nameimageinput" hidden>
+					
+					<label>Product name:</label>
+					<input type="text" th:field="*{name}" id="nameInput" />
+					<div id="nameErrorMessage" class="error-message" style="color: red;"></div>
+
+					<label>Price:</label>
+					<input type="text" th:field="*{price}" style="margin-top: 5px" id="priceInput" />
+					
+					<div id="priceErrorMessage" class="error-message" style="color: red;"></div>
+					
+					<label>Quantity:</label>
+					<input type="text" th:field="*{quantity}" style="margin-top: 5px" id="quantityInput"/>
+					<div id="quantityErrorMessage" class="error-message" style="color: red;"></div>
+					
+					<select id="categorySelect" style="margin-bottom: 0;">
+						<option value="">Chọn Category</option>
+						<option th:each="cate : ${listcate}" th:value="${cate.categorizesId}" th:text="${cate.name}">
+						</option>
+					</select>
+					<input type="text" th:field="*{categorizes}" id="categoryInput" hidden />
+					
+					<select id="brandSelect" style="margin-bottom: 0;">
+						<option value="">Chọn Brands</option>
+						<option th:each="brand : ${listbrand}" th:value="${brand.brandId}" th:text="${brand.name}">
+						</option>
+					</select>
+					<input type="text" th:field="*{brand}" id="brandInput" hidden /><br>
+					
+					<select id="genderSelect" name="selectedGenderId">
+						<option value="">Chọn giới tính</option>
+						<option th:each="gender : ${listgender}" th:value="${gender.genderId}"
+							th:text="${gender.gender}">
+						</option>
+					</select> <input type="text" th:field="*{gender}" id="genderInput" hidden /><br>
+
+					<label>Description:</label>
+					<textarea type="text" th:field="*{describe}" style="resize: none; margin-bottom: 0; height: 100px;"
+						id="describe"></textarea>
+					<div id="describeErrorMessage" class="error-message" style="color: red;"></div>
+					
+					<select id="discountSelect" style="margin-top: 0">
+						<option value="">Chọn DiscountsProducts</option>
+						<option th:each="discount : ${listDiscoutProduct}" th:value="${discount.discountsProductsId}"
+							th:text="${discount.discountAmount}"></option>
+					</select> <input type="text" th:field="*{discountsProducts}" id="discountInput" hidden />
+					
+					<a th:href="@{|/adm/editListImage/${editProductAdmin.productsId}|}" class="flex-row"
+						style="padding: 5px 20px; border: 1px solid black;">Danh sách hình ảnh</a>
+						
+					<div class="flex-row" style="width: 100%; gap: 20px; align-items: center">
+						<label class="flex-row admin-form__active"> <input type="radio" name="admin-radio"
+								th:field="*{active}" value="true" style="margin-right: 5px" />
+							<p>Active</p>
+						</label> <label class="flex-row admin-form__active" style="text-wrap: nowrap;"> <input
+								type="radio" name="admin-radio" th:field="*{active}" value="false"
+								style="margin-right: 5px" />
+							<p>No Active</p>
+						</label>
+
+					</div>
+
+				</div>
+			</div>
+			<div class="buttons flex-row">
+				<button formaction="/adm/product/create" class="btn btn-primary" id="create_btn">Create</button>
+				<button formaction="/adm/product/update" class="btn btn-warning" id="update_btn">Update</button>
+				<button formaction="/adm/product/clear" class="btn btn-danger" id="clearButton">Clear</button>
+			</div>
+
+		</form>
+
+	</div>
+
+	<script>
+		function validateAndSubmit() {
+			var nameInput = document.getElementById('nameInput');
+			var errorMessageDiv = document.getElementById('nameErrorMessage');
+			var describe = document.getElementById('describe');
+			var describeErrorMessage = document.getElementById('describeErrorMessage');
+			var priceInput = document.getElementById('priceInput');
+			var priceerrorMessageDiv = document.getElementById('priceErrorMessage');
+			var price = priceInput.value.trim();
+			var quantityInput =  document.getElementById('quantityInput');
+			var quantityErrorMessage  = document.getElementById('quantityErrorMessage');
+			var quantity = quantityInput.value.trim();
+			if (!nameInput.value.trim()) {
+				errorMessageDiv.innerText = 'Tên sản phẩm không được bỏ trống!';
+				return false;
+			}
+			if (!describe.value.trim()) {
+				describeErrorMessage.innerText = 'Mô tả không được bỏ trống!';
+				return false;
+			}
+			if (!priceInput.value.trim()) {
+				priceerrorMessageDiv.innerText = 'Giá sản phẩm không được bỏ trống!';
+				return false;
+			}
+			if (!/^\d*\.?\d*$/.test(price)) {
+				priceerrorMessageDiv.innerText = 'Vui lòng chỉ nhập số!';
+				return false;
+			}
+			if (!quantity) {
+				quantityErrorMessage.innerText = 'Số lượng sản phẩm không được bỏ trống!';
+				return false;
+			}
+			if (!/^\d*\.?\d*$/.test(quantity)) {
+				quantityErrorMessage.innerText = 'Vui lòng chỉ nhập số!';
+				return false;
+			}
+			else {
+				errorMessageDiv.innerText = '';
+				return true;
+			}
+		}
+
+		var updateButton = document.getElementById('update_btn');
+		var createButton = document.getElementById('create_btn');
+
+		updateButton.addEventListener('click', function (event) {
+			if (!validateAndSubmit()) {
+				event.preventDefault();
+			}
+
+		});
+
+		createButton.addEventListener('click', function (event) {
+			if (!validateAndSubmit()) {
+				event.preventDefault();
+			}
+
+		});
+
+		function validatePrice(input) {
+			var errorMessageDiv = document.getElementById('priceErrorMessage');
+			var price = input.value.trim();
+
+			if (!/^\d*\.?\d*$/.test(price)) {
+				errorMessageDiv.innerText = 'Vui lòng chỉ nhập số!';
+			} else {
+				errorMessageDiv.innerText = '';
+			}
+		}
+	</script>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			var clearButton = document.getElementById("clearButton");
+
+			clearButton.addEventListener("click", function () {
+				var imageFileInput = document.getElementById("imageFileInput");
+				imageFileInput.value = "";
+				var nameImageInput = document.getElementById("nameimageinput");
+				nameImageInput.value = "";
+
+			});
+		});
+	</script>
+
+
+
+	<script>
+		var genderSelect = document.getElementById('genderSelect');
+		var genderInput = document.getElementById('genderInput');
+		genderSelect.addEventListener('change', function () {
+			genderInput.value = genderSelect.value;
+		});
+
+		var categorySelect = document.getElementById('categorySelect');
+		var categoryInput = document.getElementById('categoryInput');
+		categorySelect.addEventListener('change', function () {
+			categoryInput.value = categorySelect.value;
+		});
+
+		var brandSelect = document.getElementById('brandSelect');
+		var brandInput = document.getElementById('brandInput');
+		brandSelect.addEventListener('change', function () {
+			brandInput.value = brandSelect.value;
+		});
+
+		var discountSelect = document.getElementById('discountSelect');
+		var discountInput = document.getElementById('discountInput');
+		discountSelect.addEventListener('change', function () {
+			discountInput.value = discountSelect.value;
+		});
+	</script>
+
+	<script>
+		const imageFileInput = document.getElementById("imageFileInput");
+		const nameImageInput = document.getElementById("nameimageinput");
+
+		var updateImage = function () {
+			var formData = new FormData();
+			var fileInput = document.getElementById("imageFileInput");
+			formData.append("file", fileInput.files[0]);
+
+			// Gửi yêu cầu AJAX
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "/api/images/upload", true);
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4) {
+					if (xhr.status === 200) {
+						alert("Image uploaded successfully");
+					} else {
+						alert("Image upload failed");
+					}
+				}
+			};
+			xhr.send(formData);
+		}
+
+		imageFileInput.addEventListener("change", function (event) {
+			if (event.target.files.length > 0) {
+				const selectedFileName = event.target.files[0].name;
+				nameImageInput.value = selectedFileName;
+			}
+			updateImage();
+
+		});
+	</script>
+
+
+</body>
+
+</html>

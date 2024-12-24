@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{main/layout/admin.html::areas(~{::body})}">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Thống kê user</title>
+</head>
+
+<body>
+	<div class="product-watches__header section-header flex-row-center">
+		<p class="flex-row-center">
+			Statistical user controller table 
+		</p>
+		<div class="section-header-find-add flex-row-center">
+			<label class="find-container" for="watches-find"> <i
+				class="fa-solid fa-magnifying-glass" style="color: #000000"></i>
+				<input id="searchInput" onchange="searchProducts()" type="text" placeholder="search product" />
+			</label>
+		</div>
+	</div>
+	<div class="stat-user-container">
+		<div class="container-md" style=" margin-bottom: 20px">
+			<form class="flex-row" th:action="@{/adm/thongkeuser}" method="get"
+				style="gap: 20px">
+				<table class="table" hidden></table>
+				<p style="color: var(--body-table-title);">Seclect Date</p>
+				<input id="startDateInput" type="date" th:value="${startDate}">
+				<input id="endDateInput" type="date" th:value="${endDate}">
+			</form>
+		</div>
+		<table class="table stat-user" style="height: auto">
+			<thead>
+				<tr>
+					<th scope="col">Tên user</th>
+					<th scope="col">Tổng sản phẩm đã mua</th>
+					<th scope="col">Tổng tiền đã mua trong tháng (vnd)
+					<th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="order : ${listOrders}">
+					<td th:text="${order[1]}"></td>
+					<td th:text="${order[2]}"></td>
+					<td th:text="${#numbers.formatDecimal(order[3], 0, 'COMMA', 0, 'POINT')}"></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+	<script th:inline="javascript">
+		document.getElementById('startDateInput').addEventListener('change', function () {
+			var startDate = this.value;
+			var endDate = document.getElementById('endDateInput').value;
+			window.location.href = '/adm/thongkeuser?startDate=' + startDate + '&endDate=' + endDate;
+		});
+
+		document.getElementById('endDateInput').addEventListener('change', function () {
+			var endDate = this.value;
+			var startDate = document.getElementById('startDateInput').value;
+			window.location.href = '/adm/thongkeuser?startDate=' + startDate + '&endDate=' + endDate;
+		});
+	</script>
+
+</body>
+
+</html>

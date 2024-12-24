@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{main/layout/admin.html::areas(~{::body})}">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Image</title>
+</head>
+
+<body>
+	<div class="product-watches__header section-header flex-row-center">
+		<p class="flex-row-center">
+			List Image Product
+		</p>
+		<div class="section-header-find-add flex-row-center">
+			<label class="find-container" for="watches-find"> <i
+				class="fa-solid fa-magnifying-glass" style="color: #000000"></i>
+			</label>
+			<a th:href="@{|/adm/image/clear|}">Add New Image</a>
+		</div>
+	</div>
+	<div class="products-watches__table products-table">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Picture</th>
+					<th scope="col">Color</th>
+					<th>Product Name</th>
+					<th>Belong to</th>
+					<th>Edit</th>
+				</tr>
+			</thead>
+			<tbody id="productTableBody">
+				<tr th:each="image : ${listImageProduct}" style="padding: 5px">
+					<td class="product-image-display flex-row"><img th:src="@{'/image/' + ${image.name}}" alt width="80px"></td>
+					<td th:text="${image.color.colorName}"></td>
+					<td th:text="${image.products.name}"></td>
+					<td th:text="${image.products.productsId}"></td>
+					<td><a th:href="@{|/adm/editImage/${image.imagesId}|}">Edit <i class="fa-solid fa-pen-to-square" style="color: #000000;"></i></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+</body>
+
+</html>

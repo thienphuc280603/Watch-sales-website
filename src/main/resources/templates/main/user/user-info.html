@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Main Page</title>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/responsive.css" />
+    <!--  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/2016f2764d.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+      <script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<style type="text/css">
+     	header{
+    		background-color: #000; position: relative
+    	}
+		
+    </style>
+  </head>
+  <body>
+    <div class="container" id="main">
+    <div th:replace="~{/main/user/menu::hnav}"></div>
+      <!--  -->
+      <main>
+        <div class="user-hidden__containner">
+          <div class="user-hidden__left-ui">
+          <form action="">
+            <div class="user-hidden__left-ui-content">
+              <div class="user-hidden__head">
+                <img
+                  src="https://lh3.googleusercontent.com/a/ACg8ocJJfUexNvHDikCp8_mcypOLS1QrVH2h8Os3eXdsESxj=s96-c"
+                  width="30px"
+                  height="30px"
+                  style="border-radius: 50%"
+                  alt="user-avt"
+                />
+                <p th:text="${session.user.fullName}">Mai Hồ Hoàng Vi</p>
+              </div>
+              <div class="user-hidden__body">
+              	<label>FullName</label>
+                <input type="text" placeholder="Full name" th:value="${session.user.fullName}" name="fullname"/>
+                <label>Email</label>
+                <input type="email" placeholder="Email"   th:value="${session.user.email}" name="email"/>
+                <label>Home town</label>
+                <input type="text" placeholder="Home town"  th:value="${session.user.address}" name="address"/>
+                <label th:if="${session.user.password != ''}">PassWord</label>
+                <input th:if="${session.user.password != ''}" type="text" placeholder="PassWord"  th:value="${session.user.password}" name="password"/>
+                <label>Phone</label>
+                <input
+                  type="number"
+                  class="user-phone-number"
+                  placeholder="Phone number" th:value="${session.user.phone}" name="phone"
+                />
+                <div class="user-gender">
+                  <label for="user-gender-male">
+                    <input
+                      type="radio"
+                      name="gender-input"
+                      id="user-gender-male" th:checked="${session.user.gender == true}" value="true" 
+                    />
+                    Male
+                  </label>
+                  <label for="user-gender-female">
+                    <input
+                      type="radio"
+                      name="gender-input"
+                      id="user-gender-female" th:checked="${session.user.gender == false}" value="false" 
+                    />
+                    Female
+                  </label>
+                </div>
+              </div>
+              <div class="user-hidden__footer">
+                <button  formaction="/user-info/update">Update</button>
+              </div>
+            </div>
+            </form>
+          </div>
+          <div class="user-hidden__right-ui fs-resp-md">
+            <div class="user-hidden__right-ui-content">
+              <div class="user-bill-head">
+                <h>YOUR ALL BILL</h>
+              </div>
+               <form action="">
+              <div class="user-bill-body">
+                <div class="user-bill-body__content" th:each="item : ${listOrder}" th:if="${item[7] == true}">
+                  <div
+                    class="div-flex fs-resp-md"
+                    style="justify-content: space-between"
+                  >
+                    <div class="div-flex">
+                      <p>Id hóa đơn:</p>
+                      <p th:text="${item[0]}">12</p>
+                    </div>
+                    <div class="div-flex">
+                      <p>Ngày mua:</p>
+                      <p th:text="${#dates.format(item[1], 'dd-MM-yyyy')}">12/02/2023</p>
+                    </div>
+                  </div>
+                  <div class="div-flex fs-resp-md">
+                    <p>Nơi giao:</p>
+                    <p th:text="${item[3]}">Bến Tre</p>
+                  </div>
+                  <table class="fs-resp-md">
+                    <thead>
+                      <th style="padding: 10px 0">Hình ảnh</th>
+                      <th>Tên sản phẩm</th>
+                      <th>Số lượng</th>
+                      <th>Giá gốc (vnd)</th>
+                    </thead>
+                    <tbody>
+                      <tr th:each="item1 : ${listItem}" th:if="${item1[0] == item[0]}">
+                        <td style="display: flex; justify-content: center">
+                          <img
+                             th:src="@{|/image/${item1[1]}|}"
+                            width="75px"
+                            height="75px"
+                            alt=""
+                          />
+                        </td>
+                        <td  th:text="${item1[2]}">Tên sản phẩm</td>
+                        <td th:text="${item1[3]}">2</td>
+                        <td th:text="${#numbers.formatDecimal(item1[4], 0, 'COMMA', 0, 'POINT')}"></td>                
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="div-flex" th:each="item2 : ${listPrice}" th:if="${item2[0]==item[0]}">
+                    <p>Số Lượng Sản Phẩm:</p>
+                    <p th:text="${item2[1]}">4</p>
+                  </div>
+                  <div class="div-flex" th:each="item2 : ${listPrice}" th:if="${item2[0]==item[0]}">
+                    <p>Tổng tiền:</p>
+                    <p th:text="${#numbers.formatDecimal(item2[2], 0, 'COMMA', 0, 'POINT') + ' vnd'}"></p>                   
+                  </div>
+                  <div class="div-flex" style="justify-content: space-between">
+                    <div class="div-flex" th:each="item2 : ${listPrice}" th:if="${item2[0]==item[0]}">
+                      <p>Mã Giảm Giá:</p>
+                      <p th:if ="${item[5]==item2[2]}">Không áp dụng</p>
+							<p th:if ="${item[5]!=item2[2]}" th:text="${#strings.replace(((item2[2] - item[5]) / item2[2]) * 100, '.0', '')+'%'}"></p>
+                    </div>
+                    <div class="div-flex">
+                      <p>Trạng thái:</p>
+                      <p th:if ="${item[8]== false}">Đang xử lý</p>
+                      <p th:if ="${item[8]== true}">Đã xác nhận đơn hàng</p>
+                    </div>
+                  </div>
+                  <div class="div-flex final-price">
+                    <div>
+                      <p>Thành Tiền:</p>
+                      <p th:text="${#numbers.formatDecimal(item[5], 0, 'COMMA', 0, 'POINT') + ' vnd'}"></p>                  
+                    </div>
+                    <div th:if="${item[8] !=true}">
+                      <button th:formaction="@{|/delete/bill/${item[0]}|}" >Hủy Đơn Hàng</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                </form>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+  <script src="/js/app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script>
+    const nav = document.querySelector(".nav");
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener("scroll", () => {
+      if (lastScrollY < window.scrollY) {
+        nav.classList.add("nav--hidden");
+      } else {
+        nav.classList.remove("nav--hidden");
+      }
+
+      lastScrollY = window.scrollY;
+    });
+  </script>
+</html>

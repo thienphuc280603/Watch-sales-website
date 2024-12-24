@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{main/layout/admin.html::areas(~{::body})}">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Discount Product</title>
+</head>
+
+<body>
+	<div class="product-watches__header section-header flex-row-center">
+		<p class="flex-row-center">
+			DISCOUNT
+		</p>
+		<div class="section-header-find-add flex-row-center">
+			<label class="find-container" for="watches-find"> <i
+				class="fa-solid fa-magnifying-glass" style="color: #000000"></i>
+				<input id="searchInput" oninput="searchProducts()" type="text"/>
+			</label>
+		</div>
+	</div>
+	<div class="discount-container" style="height: 75%; overflow: hidden">
+		<table style="height: auto" class="discount-table" id="myTable">
+			<thead>
+				<tr>
+					<th>Code</th>
+					<th>Discount Amount</th>
+					<th>Date Start</th>
+					<th>Date End</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="discount : ${discountsProductsList}">
+					<td th:text="${discount.discountsProductsId}"></td>
+					<td th:text="${discount.discountAmount}"></td>
+					<td th:text="${#dates.format(discount.dateStart, 'yyyy-MM-dd')}"></td>
+					<td th:text="${#dates.format(discount.dateEnd, 'yyyy-MM-dd')}"></td>
+
+					<td class="flex-row" style="gap: 5px; justify-content: center">
+						<button type="button"
+							class="btn edit-button-DiscountProduct link-color flex-row"
+							style="width: 100%"
+							th:data-idDiscountProduct="${discount.discountsProductsId}">
+							<p>Detail</p><i class="fa fa-eye" aria-hidden="true"></i>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<form class="discount-form flex-row discount-table" action="" th:object="${discountsProducts}" method="post">
+		<label class="flex-column"><p>Discont Name</p> <input
+			name="discountsProductsId" type="text"
+			th:field="*{discountsProductsId}" placeholder="Code..." />
+		</label>
+		<div th:if="${#fields.hasErrors('discountsProductsId')}"
+			th:errors="*{discountsProductsId}" class="error-message"></div>
+
+		<label class="flex-column"> <p>Discount Amount</p> <input
+			name="discountAmount" type="text" th:field="*{discountAmount}"
+			placeholder="Discount Amount" />
+		</label>
+		<div th:if="${#fields.hasErrors('discountAmount')}"
+			th:errors="*{discountAmount}" class="error-message"></div>
+
+		<label class="flex-column"> <p>Discount Start Time</p> <input
+			name="dateStart" id="dateStartInput" type="date"
+			th:field="*{dateStart}" />
+		</label>
+		<div th:if="${#fields.hasErrors('dateStart')}"
+			th:errors="*{dateStart}" class="error-message"></div>
+
+		<label class="flex-column"> <p>Discount End Time</p> <input
+			name="dateEnd" id="dateEndInput" type="date" th:field="*{dateEnd}" />
+		</label>
+		<div th:if="${#fields.hasErrors('dateEnd')}" th:errors="*{dateEnd}"
+			class="error-message"></div>
+
+		<div class="buttons">
+			<button formaction="/adm/action-add/discount-product"
+				id="BtnAddDiscountProduct" style="display: inline-block; background-color: #539165; color: #fff">Add
+				Discount</button>
+			<button formaction="/adm/action-update/discount-product"
+				id="BtnUpdateDiscountProduct" style="display: none; color: #fff; background-color: #539165;">Update
+				</button>
+			<button formaction="/adm/action-delete/discount-product"
+				id="BtnDeleteDiscountProduct"
+				style="display: none; background-color: red; color: #fff">Delete
+				</button>
+			<button formaction="/adm/discountproduct"
+				style="background-color: gray; color: #fff">Refresh</button>
+		</div>
+	</form>
+	<script src="/js/admin.js"></script>
+		<script>
+    function searchProducts() {
+        var searchTerm = document.getElementById("searchInput").value.toLowerCase();
+        var tableBody = document.querySelector("table tbody");
+        var rows = tableBody.getElementsByTagName("tr");
+
+        for (var i = 0; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName("td");
+            var found = false;
+
+            for (var j = 0; j < cells.length; j++) {
+                var cellText = cells[j].textContent.toLowerCase();
+
+                if (cellText.includes(searchTerm)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            // Ẩn hoặc hiển thị dòng dựa trên kết quả tìm kiếm
+            if (found) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+</script>
+</body>
+</html>

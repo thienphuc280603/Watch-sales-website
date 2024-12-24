@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body class="user-pass-forgot">
+    <div class="container">
+      <div class="container-form" id="register">
+        <h2>Xác nhận Email của bạn</h2>
+        <form action="/confirm-code" method="post">
+          <input
+            placeholder="Nhập mã xác nhận"
+            type="text"
+            id="confirmationCode"
+            name="confirmationCode"
+            required
+          />
+          <button type="submit" class="container-form__link">Xác nhận</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

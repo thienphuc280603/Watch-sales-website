@@ -1,0 +1,87 @@
+
+.col{
+	margin: 0;
+}
+.opt-title p, .opt-title span{
+	color: #fff;
+	 padding: 10px 20px;
+}
+.menu-logo{
+	color: #fff;
+	 padding: 10px 20px;
+}
+.menu{
+   background-color: rgb(4, 4, 33);
+   height: 800px;
+   margin: 0;
+}
+
+.menu ul{
+    margin-top: 50px;
+    padding: 10px;
+    list-style: none;
+}
+
+.menu h1{
+    padding: 10px 20px;
+}
+.menu ul li{
+    padding: 10px 20px;
+}
+
+.menu ul li a{
+    color: #fff;
+}
+
+.menu ul li:hover{
+    background-color: #858383;
+    cursor: pointer;
+}
+
+.menu ul li:hover a{
+    text-decoration: none;
+}
+
+
+
+label {
+    display: block;
+    margin-top: 2px;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+/* Style for form inputs */
+input[type="text"],
+textarea {
+    width: 80%;
+    padding: 5px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
+
+/* Style for radio buttons */
+.flex-row {
+    display: flex;
+    align-items: center;
+}
+
+.admin-form__gender {
+    margin-right: 20px;
+}
+
+/* Style for buttons */
+
+/* Style for select boxes */
+select {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
+
+/* Optional: Style for the container of select boxes */
+/* Adjust the width as needed */
+#genderSelect, #categorySelect, #brandSelect, #discountSelect {
+    width: 50%;
+}

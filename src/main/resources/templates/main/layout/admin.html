@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="areas(view)">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<!-- <link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+	integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+	integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<link rel="stylesheet" href="/css/admincustom.css" />
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<link rel="stylesheet" href="/css/admin.css" />
+<link rel="stylesheet" href="/css/reset.css" />
+<script src="https://kit.fontawesome.com/2016f2764d.js"
+	crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<div class="container flex-row">
+		<!-- <div class="col-md-2">
+			<div class="menu">
+				<div class="menu-logo">logo</div>
+				<div class="opt-title">
+					<p>DASHBOARDS</p>
+					<span>Chào ngài </span><span th:text="${session.user.fullName}" style="margin-left: -30px;"></span>
+				</div>
+				<ul>
+					<li><a th:href="@{/adm/product}">Product</a></li>
+					<li><a th:href="@{/adm/image}">Image</a></li>
+					<li><a th:href="@{/adm/size}">Size</a></li>
+					<li><a th:href="@{/adm/useraccount}">Account Info</a></li>
+					<li><a th:href="@{/adm/userlist}">User Account</a></li>
+					<li><a th:href="@{/adm/thongke}">Thong Ke</a></li>
+					<li><a th:href="@{/adm/thongkeuser}">Thong Ke User</a></li>
+					<li><a th:href="@{/adm/adminmember}">Member</a></li>
+					<li><a th:href="@{/adm/bill}">Bill</a></li>
+					<li><a th:href="@{/adm/discountproduct}">Discounts products</a></li>
+				</ul>
+			</div>
+		</div>  -->
+		<input id="check-side-bar" type="checkbox" />
+		<div class="side-bar">
+			<div class="menu flex-column">
+				<div class="menu-logo">
+					<a id="openLink" th:href="@{|/|}" >
+			<img src="/image/logo2.png" alt="" width="70px;"/>
+		</a>
+				</div>
+				<div class="opt-title">
+					<p>DASHBOARDS</p>
+					<span>admin controller object</span>
+				</div>
+				<div class="menu-products menu-opt menu-opt-margin flex-column">
+					<a th:href="@{/adm/product}" class="flex-row"
+						data-target="#products"><i
+						class="fa-solid fa-boxes-stacked" style="color: #000000"></i><span>Products</span>
+					</a>
+				</div>
+				<div class="menu-statistical menu-opt menu-opt-margin flex-column">
+					<a th:href="@{/adm/thongke}" class="flex-row"
+						data-target="#Statistical"><i
+						class="fa-solid fa-chart-line" style="color: #000000"></i><span>Statistical</span></a>
+				</div>
+				<div class="menu-revenue menu-opt menu-opt-margin">
+					<a th:href="@{/adm/thongkeuser}" class="flex-row"
+						data-target="#revenue"><i
+						class="fa-solid fa-chart-column" style="color: #000000"></i><span>Statistical
+							User</span></a>
+				</div>
+				<div class="menu-bill menu-opt menu-opt-margin">
+					<a th:href="@{/adm/bill}" class="flex-row" data-target="#bill"><i
+						class="fa-solid fa-money-bills" style="color: #000000"></i><span>Bill</span></a>
+				</div>
+				<div class="menu-discount menu-opt menu-opt-margin">
+					<a th:href="@{/adm/discountproduct}" class="flex-row"
+						data-target="#discounts"><i
+						class="fa-solid fa-tags" style="color: #000000"></i><span>Discounts</span></a>
+				</div>
+				<div class="opt-title">
+					<p>ADMIN</p>
+					<span>change your account</span>
+				</div>
+				<div class="menu-user menu-opt menu-opt-margin">
+					<a th:href="@{/adm/userlist}" class="flex-row" data-target="#users"><i
+						class="fa-solid fa-users" style="color: #000000"></i><span>User
+							Account</span></a>
+				</div>
+				<div class="menu-admin menu-opt menu-opt-margin">
+					<a th:href="@{/adm/useraccount}" class="flex-row"
+						data-target="#admin"><i
+						class="fa-solid fa-user" style="color: #000000"></i><span>Account
+							Info</span></a>
+				</div>
+				<div class="menu-all-admin menu-opt menu-opt-margin">
+					<a th:href="@{/adm/adminmember}" class="flex-row"
+						data-target="#all-admin"><i
+						class="fa-solid fa-address-book" style="color: #000000"></i><span>Admin
+							Member</span></a>
+				</div>
+				<div class="opt-title">
+					<p>THEME COLOR</p>
+					<span>change website color</span>
+				</div>
+				<div class="menu-theme-color menu-opt menu-opt-margin"
+					style="color: #fff">
+					<div class="menu-user menu-opt menu-opt-margin">
+						<button href="#" class="flex-row" id="light-theme-btn"
+							onclick="lightMode()">
+							<i class="fa-solid fa-sun" style="color: #000000"></i> <span>Light
+								theme</span>
+						</button>
+					</div>
+					<div class="menu-use menu-opt menu-opt-margin">
+						<button href="#" class="flex-row" id="dark-theme-btn"
+							onclick="darkMode()">
+							<i class="fa-solid fa-moon" style="color: #000000"></i> <span>Dark
+								theme</span>
+						</button>
+					</div>
+					<script>
+	              let element = document.body;
+	              function lightMode() {
+	                element.classList.add("light-mode");
+	                element.classList.remove("dark-mode");
+	              }
+	              function darkMode() {
+	                element.classList.remove("light-mode");
+	                element.classList.add("dark-mode");
+	              }
+	            </script>
+				</div>
+			</div>
+		</div>
+
+		<main class="flex-column">
+			<header class="flex-row">
+				<div class="header-icon">
+					<label for="check-side-bar" class="flex-row"> <i
+						class="fa-solid fa-bars" style="color: #000000"></i>
+					</label>
+				</div>
+				<div class="header-admin flex-row">
+					<div class="header-admin__name" th:text="${session.user.fullName}"></div>
+					<div class="header-admin__logout">
+						<label for="check-side-bar"> <i
+							class="fa-solid fa-arrow-right-from-bracket"
+							style="color: #000000"></i>
+						</label>
+					</div>
+				</div>
+			</header>
+			<div class="main-content">
+				
+					<div th:replace="${view}" class="main"></div>
+			
+			</div>
+		</main>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{main/layout/admin.html::areas(~{::body})}">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Member</title>
+</head>
+
+<body>
+	<div class="admin-member-container">
+		<div class="product-watches__header section-header flex-row-center" style="background-color: grey;">
+			<p class="flex-row-center" style="font-weight: bold; color: white;">MANAGER MEMBER</p>
+			<div class="section-header-find-add flex-row-center">
+				<label class="find-container" for="watches-find"  style="background-color: white;"> <i
+					class="fa-solid fa-magnifying-glass" style="color: #000000"></i> <input
+					id="searchInputAdmin" oninput="searchAdm()" type="text"/>
+				</label>
+			</div>
+		</div>
+		<table style="height: auto" id="admin">
+			<thead>
+				<tr>
+					<th>User Id</th>
+					<th>Full Name</th>
+					<th>Gender</th>
+					<th>Email</th>
+					<th>Address</th>
+					<th>Phone</th>
+					<th th:if="${session.user.role == 'administer'}">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${adminsiterList}">
+					<td th:text="${user.userId}"></td>
+					<td th:text="${user.fullName}"></td>
+					<td th:if="${user.gender} == true">Nam</td>
+					<td th:if="${user.gender} != true">Nữ</td>
+					<td th:text="${user.email}"></td>
+					<td th:text="${user.address}"></td>
+					<td th:text="${user.phone}"></td>
+					<td
+						th:if="${session.user.userId != user.userId and session.user.role == 'administer'}">
+						<a
+						th:href="@{/adm/userlist/change-role/{userId}/user(userId=${user.userId})}" style="padding: 10px; border-radius: 5px; background-color: #D80032; height: 20px; font-size: 10px; color: #ffffff !important;
+						margin-bottom: 5px;">Xoá
+							chức vụ</a>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+		<div class="product-watches__header section-header flex-row-center"  style="background-color: gray;">
+			<p class="flex-row-center" style="font-weight: bold; color: white;">STAFF MEMBER</p>
+			<div class="section-header-find-add flex-row-center">
+				<label class="find-container" for="watches-find"  style="background-color: white;"> <i
+					class="fa-solid fa-magnifying-glass" style="color: #000000"></i> <input
+					id="searchInputStaff" oninput="searchStaff()" type="text"/>
+				</label>
+			</div>
+		</div>
+		<table style="height: auto" id="staff">
+			<thead>
+				<tr>
+					<th>User Id</th>
+					<th>Full Name</th>
+					<th>Gender</th>
+					<th>Email</th>
+					<th>Address</th>
+					<th>Phone</th>
+					<th th:if="${session.user.role == 'administer'}">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${admindeployList}">
+					<td th:text="${user.userId}"></td>
+					<td th:text="${user.fullName}"></td>
+					<td th:if="${user.gender} == true">Nam</td>
+					<td th:if="${user.gender} != true">Nữ</td>
+					<td th:text="${user.email}"></td>
+					<td th:text="${user.address}"></td>
+					<td th:text="${user.phone}"></td>
+					<td
+						th:if="${session.user.userId != user.userId and session.user.role == 'administer'}">
+						<a type="button" style="padding: 10px; border-radius: 5px; background-color: #D80032; height: 20px; font-size: 10px; color: #ffffff !important"
+						th:href="@{/adm/userlist/change-role/{userId}/user(userId=${user.userId})}">Xoá
+							chức vụ</a>
+					</td>
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script>
+    function searchAdm() {
+        // Lấy giá trị nhập vào từ ô tìm kiếm
+        var searchTerm = document.getElementById("searchInputAdmin").value.toLowerCase();
+
+        // Lặp qua từng dòng trong tbody của bảng
+        var tableBody = document.getElementById("admin").getElementsByTagName("tbody")[0];
+        var rows = tableBody.getElementsByTagName("tr");
+
+        for (var i = 0; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName("td");
+            var found = false;
+
+            // Lặp qua từng ô trong dòng để tìm kiếm
+            for (var j = 0; j < cells.length; j++) {
+                var cellText = cells[j].textContent.toLowerCase();
+
+                // Nếu tìm thấy từ khóa tìm kiếm trong ô, đặt found thành true và thoát khỏi vòng lặp
+                if (cellText.includes(searchTerm)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            // Ẩn hoặc hiển thị dòng dựa trên kết quả tìm kiếm
+            if (found) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+</script>
+<script>
+    function searchStaff() {
+        // Lấy giá trị nhập vào từ ô tìm kiếm
+        var searchTerm = document.getElementById("searchInputStaff").value.toLowerCase();
+
+        // Lặp qua từng dòng trong tbody của bảng
+        var tableBody = document.getElementById("staff").getElementsByTagName("tbody")[0];
+        var rows = tableBody.getElementsByTagName("tr");
+
+        for (var i = 0; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName("td");
+            var found = false;
+
+            // Lặp qua từng ô trong dòng để tìm kiếm
+            for (var j = 0; j < cells.length; j++) {
+                var cellText = cells[j].textContent.toLowerCase();
+
+                // Nếu tìm thấy từ khóa tìm kiếm trong ô, đặt found thành true và thoát khỏi vòng lặp
+                if (cellText.includes(searchTerm)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            // Ẩn hoặc hiển thị dòng dựa trên kết quả tìm kiếm
+            if (found) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
+	
+</body>
+
+</html>

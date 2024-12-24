@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="login-container .custom-background">
+      <div class="login-form" id="login-form">
+        <h1>Form Login</h1>
+        <p th:if="${errorMessage}" style="color: red" th:text="${errorMessage}"></p>
+        <form th:action="@{/login-processing}" method="post">
+          <input style="width : 100%; margin-bottom :10px"
+            type="text"
+            id="userid"
+            name="userid"
+            th:value="${userid}"
+            required
+            placeholder="Userid"
+          />
+        <input style="width : 100%; margin-bottom : 10px"
+            type="password"
+            id="password"
+            name="password"
+            th:value="${password}"
+            required
+            placeholder="Mật khẩu"
+          />
+        <div class="under-input">
+          <div class="remmember-password">
+            <input type="checkbox" id="remember" name="remember" th:checked="${remember}"/> 
+            Remmeber me?
+          </div>
+          <a th:href="@{/main/user/forgot-password}">Forgot password?</a>
+        </div>
+        <div class="login-button">
+           	<button class="container-form__link" type="submit">
+              Login
+            </button>
+        </div>
+        <p>or login with</p>
+        <div class="login-gg-fb">
+          <a th:href="@{|/oauth2/authorization/google|}" style="width : 100%; margin-bottom : 10px">
+            <img src="/image/gg-icon.png" alt="" />
+            login with google
+          </a>
+          
+        </div>
+        <p class="register">
+          Don't have account? <a id="to-register" th:href="@{/main/user/register}">Register</a>
+        </p>
+      </div>
+      <div class="login-form register-form" id="register">
+        <h1>Form Register</h1>
+        <input type="text" placeholder="email" />
+        <input type="text" placeholder="fullname" />
+        <input type="text" placeholder="phone" />
+        <input type="text" placeholder="adderss" />
+        <input type="text" placeholder="password" />
+        <input type="text" placeholder="Confirm password" />
+        <div class="register-gender">
+          <input name="register-gender-radio" id="male" type="radio" />
+          <label for="male"> Male </label>
+          <input name="register-gender-radio" id="female" type="radio" />
+          <label for="female"> Female </label>
+        </div>
+        <div class="login-button">
+          <button>Register</button>
+        </div>
+        <p>back to login form? <a id="to-login">login</a></p>
+      </div>
+    </div>
+  </body>
+  <script>
+    document.getElementById("register").style.display = "none";
+    const toLogin = document.getElementById("to-login");
+    const toRegister = document.getElementById("to-register");
+    toRegister.onclick = () => {
+      document.getElementById("login-form").style.display = "none";
+      document.getElementById("register").style.display = "flex";
+    };
+    toLogin.onclick = () => {
+      document.getElementById("register").style.display = "none";
+      document.getElementById("login-form").style.display = "flex";
+    };
+  </script>
+</html>

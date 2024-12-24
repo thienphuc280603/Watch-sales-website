@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{main/layout/admin.html::areas(~{::body})}">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Account Info</title>
+</head>
+
+<body>
+	<div class="user-info-container flex-row">
+		<form th:object="${userInfo}" action="" method="post" class="flex-column">
+			<div class="admin-form__title flex-row" style="font-size: 20px; font-weight: bold">Your Information</div>
+			<label class="flex-row"> <input type="text" style="font-weight: bold;" th:field="*{userId}"
+					placeholder="Account Id" />
+			</label> <label class="flex-row"> <input type="text" th:field="*{fullName}" placeholder="Fullname" />
+			</label> <label class="flex-row"> <input type="text" th:field="*{email}" placeholder="Email" />
+			</label> <label class="flex-row"> <input type="text" th:field="*{address}" placeholder="Address" />
+			</label> <label class="flex-row"> <input type="text" th:field="*{phone}" placeholder="Phone number" />
+			</label>
+			<div class="flex-row">
+				<label class="flex-row admin-form__gender">
+					<p>Male</p> <input type="radio" th:field="*{gender}" value="true" />
+				</label> <label class="flex-row admin-form__gender">
+					<p>Female</p> <input type="radio" th:field="*{gender}" value="false" />
+				</label>
+			</div>
+			<div class="admin-form__button flex-row">
+				<button onclick="clearForm(event)">Clear</button>
+				<button formaction="/adm/action-update/info-admin">Update</button>
+			</div>
+		</form>
+	</div>
+	
+	<script src="/js/admin.js"></script>
+</body>
+
+</html>

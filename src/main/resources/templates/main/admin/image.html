@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{main/layout/admin.html::areas(~{::body})}">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Image</title>
+</head>
+
+<body>
+	<div class="product-watches__header section-header flex-row-center">
+		<p class="flex-row-center">
+			products controller image
+		</p>
+		<div class="section-header-find-add flex-row-center">
+			<label class="find-container" for="watches-find"> <i
+				class="fa-solid fa-magnifying-glass" style="color: #000000"></i>
+				<input id="searchInput" onchange="searchProducts()" type="text" placeholder="search product" />
+			</label>
+			<button class="flex-row-center">
+				add <i class="fa-solid fa-plus" style="color: #000000"></i>
+			</button>
+		</div>
+	</div>
+	<div class="products-watches__table products-table">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Picture</th>
+					<th scope="col">Color</th>
+					<th>Product Name</th>
+					<th>Belong to</th>
+					<th>Edit</th>
+				</tr>
+			</thead>
+			<tbody id="productTableBody">
+				<tr th:each="image : ${listImage}">
+					<td class="product-image-display flex-row"><img th:src="@{'/image/' + ${image.name}}" alt width="50px" height="50px"></td>
+					<td th:text="${image.color.colorName}"></td>
+					<td th:text="${image.products.name}"></td>
+					<td th:text="${image.products.productsId}"></td>
+					<td><a th:href="@{|/adm/editImage/${image.imagesId}|}">Edit <i class="fa-solid fa-pen-to-square" style="color: #000000;"></i></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="product-nav flex-row">
+		<div class="product-footer__page-index">
+			page index: <span class="product-index-of"><span th:text="${imagesPage.number}"></span> of <span th:text="${imagesPage.totalPages}"></span> pages</span>
+		</div>
+		<div th:if="${imagesPage.totalPages > 1}">
+			<ul class="pagination" style="display: flex;">
+				<li th:if="${imagesPage.hasPrevious}" class="page-item">
+					<a th:href="@{|/adm/image?page=1|}" class="page-link"><i
+	                      class="fa-solid fa-backward-step"
+	                      style="color: #000000"
+	                    ></i></a>
+				</li>
+				<li th:if="${imagesPage.hasPrevious}" class="page-item">
+					<a th:href="@{|/adm/image?page=${imagesPage.number - 1}|}" class="page-link"><i class="fa-solid fa-backward" style="color: #000000"></i></a>
+				</li>
+				<li>
+					<a th:href="@{|/adm/image?page=${imagesPage.number + 1}|}" class="page-link"><i class="fa-solid fa-forward" style="color: #000000"></i></a>
+				</li>
+				<li th:if="${imagesPage.hasNext}" class="page-item">
+					<a th:href="@{|/adm/image?page=${imagesPage.totalPages}|}" class="page-link"><i
+	                      class="fa-solid fa-forward-step"
+	                      style="color: #000000"
+	                    ></i></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+</body>
+
+</html>

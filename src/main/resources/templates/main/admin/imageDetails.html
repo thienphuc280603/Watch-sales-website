@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{main/layout/admin.html::areas(~{::body})}">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Main Page</title>
+
+
+</head>
+
+<body>
+	<div class="product-watches__header section-header flex-row-center">
+		<p class="flex-row-center">images controller table detail</p>
+		<div class="section-header-find-add flex-row-center">
+			<button class="flex-row-center">Back</button>
+		</div>
+	</div>
+	<div class="edit-container image-admin-form">
+		<form class="image-form" th:object="${image}" method="post" enctype="multipart/form-data">
+			<input type="text" hidden th:field="*{imagesId}" /><br> <input
+				th:field="*{name}" id="nameimageinput" hidden>
+			<div class="flex-row">
+				<div class="image-container">
+					<img th:src="@{|/image/${image.name}|}" alt="Image" width="300px" />
+				</div>
+				<div class="input-container" style="width: 90%;">
+					<input type="text" th:field="*{color}" id="colorinput" hidden />
+					 <input type="text"
+						th:field="*{products.productsId}" hidden/>
+						<br> <label>Chọn
+						Colors:</label> <select id="colorSelect">
+						<option value="">Chọn color</option>
+						<option th:each="color : ${listColorImage}"
+							th:value="${color.colorId}" th:text="${color.colorName}">
+						</option>
+					</select>
+					<div class="buttons flex-row">
+						<button formaction="/adm/image/update" class="btn btn-primary">Update</button>
+						<button formaction="/adm/image/create" class="btn btn-success">Create</button>
+						<button formaction="/adm/image/clear" class="btn btn-warning">Clear</button>
+						<button formaction="/adm/image/delete" class="btn btn-danger">Delete</button>
+					</div>
+				</div>
+			</div>
+		</form>
+		<form class="image-form" id="uploadForm" enctype="multipart/form-data" style="margin-top: 50px;">
+			<input type="file" name="file" accept="image/*" required id="imageFileInput">
+		</form>
+	</div>
+	<script>
+		var colorSelect = document.getElementById("colorSelect");
+		var colorinput = document.getElementById("colorinput");
+
+		colorSelect.addEventListener("change", function () {
+			colorinput.value = colorSelect.value;
+		})
+	</script>
+
+	<script>
+		const imageFileInput = document.getElementById("imageFileInput");
+		const nameImageInput = document.getElementById("nameimageinput");
+		
+		var updateImage = function () {
+			var formData = new FormData();
+			var fileInput = document.getElementById("imageFileInput");
+			formData.append("file", fileInput.files[0]);
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "/api/images/upload", true);
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4) {
+					if (xhr.status === 200) {
+						alert("Image uploaded successfully");
+					} else {
+						alert("Image upload failed");
+					}
+				}
+			};
+			xhr.send(formData);
+			
+		}
+
+		imageFileInput.addEventListener("change", function (event) {
+			if (event.target.files.length > 0) {
+				const selectedFileName = event.target.files[0].name;
+				nameImageInput.value = selectedFileName;
+			}
+			updateImage();
+		});
+	</script>
+</body>
+</html>

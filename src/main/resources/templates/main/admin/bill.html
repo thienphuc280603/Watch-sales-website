@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{main/layout/admin.html::areas(~{::body})}">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Bill</title>
+</head>
+
+<body>
+	
+
+<div class="custom-dropdown">
+    <select id="billSelector">
+        <option value="billNew">New invoice</option>
+        <option value="billConfirm">Confirmed invoice</option>
+        <option value="billCancel">Canceled invoice</option>
+    </select>
+    <div class="icon"><i class="fas fa-chevron-down"></i></div>
+</div>
+
+	<div class="bill-container active" id="billNew">
+		<table style="text-align: center; height: auto">
+			<thead>
+				<tr>
+					<th>Action</th>
+					<th>Name</th>
+					<th>Phone</th>
+					<th>Email</th>
+					<th>Date</th>
+					<th>Total price</th>
+					<th>See more</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="order : ${orderListNew}">
+					<td><a type="button" class="link-color-buttondetail flex-row" style="gap: 5px; background-color: green; color: white; padding: 5px; border-radius: 30px;"
+						th:href="@{/adm/orderAction/change-order/confirm/{orderId}(orderId=${order.orderId})}">Xác nhận</a> <span> | </span>
+						<a type="button" class="link-color-buttondetail flex-row" style="gap: 5px; background-color: red; color: white; padding: 5px; border-radius: 30px;"
+						th:href="@{/adm/orderAction/change-order/cancel/{orderId}(orderId=${order.orderId})}">Huỷ</a>
+					</td>
+					<td th:text="${order.user.fullName}"></td>
+					<td th:text="${order.phone}"></td>
+					<td th:text="${order.user.email}"></td>
+					<td th:text="${#dates.format(order.date, 'dd/MM/yyyy')}"></td>
+					<td th:text="${#numbers.formatDecimal(order.price, 0, 'COMMA', 0, 'POINT') + ' vnd'}"></td>
+					
+					
+					<td><a type="button" class="link-color-buttondetail flex-row" style="gap: 5px;"
+						th:href="@{/adm/detail-order/{orderId}(orderId=${order.orderId})}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	
+	
+	<div class="bill-container" id="billConfirm">
+		<table style="text-align: center; height: auto">
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Name</th>
+					<th>Phone</th>
+					<th>Email</th>
+					<th>Date</th>
+					<th>Total price</th>
+					<th>See more</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="order : ${orderListConfirm}">
+					<td style="background-color: green; color: white; font-weight: bold; border-radius: 30px;">Đã xác nhận</td>
+					<td th:text="${order.user.fullName}"></td>
+					<td th:text="${order.phone}"></td>
+					<td th:text="${order.user.email}"></td>
+					<td th:text="${#dates.format(order.date, 'dd/MM/yyyy')}"></td>
+					<td th:text="${#numbers.formatDecimal(order.price, 0, 'COMMA', 0, 'POINT') + ' vnd'}"></td>				
+					<td><a type="button" class="link-color-buttondetail flex-row" style="gap: 5px;"
+						th:href="@{/adm/detail-order/{orderId}(orderId=${order.orderId})}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	
+	<div class="bill-container" id="billCancel">
+		<table style="text-align: center; height: auto">
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Name</th>
+					<th>Phone</th>
+					<th>Email</th>
+					<th>Date</th>
+					<th>Total price</th>
+					<th>See more</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="order : ${orderListCancel}">
+					<td style="background-color: yellow; color: black; font-weight: bold; border-radius: 30px;">Đơn hàng đã huỷ</td>
+					<td th:text="${order.user.fullName}"></td>
+					<td th:text="${order.phone}"></td>
+					<td th:text="${order.user.email}"></td>
+					<td th:text="${#dates.format(order.date, 'dd/MM/yyyy')}"></td>
+					<td th:text="${order.price}"></td>
+					<td><a type="button" class="link-color-buttondetail flex-row" style="gap: 5px;"
+						th:href="@{/adm/detail-order/{orderId}(orderId=${order.orderId})}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(".custom-dropdown select").hover(function () {
+        $(this).css("border-color", "#4CAF50");
+    }, function () {
+        $(this).css("border-color", "#ddd");
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#billSelector").val("billNew").change();
+
+        $("#billSelector").change(function () {
+            var selectedBill = $(this).val();
+            $(".bill-container").removeClass("active");
+            $("#" + selectedBill).addClass("active");
+        });
+    });
+</script>
+	
+</body>
+
+</html>

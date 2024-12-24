@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{main/layout/admin.html::areas(~{::body})}">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Thống kê</title>
+
+</head>
+
+<body>
+	<div class="stat-container">
+		<div class="container-md" style=" margin-bottom: 20px">
+			<form class="flex-row" th:action="@{/adm/thongke}" method="get"
+				style="gap: 20px;">
+				<table class="table" hidden></table>
+				<p style="color: var(--body-table-title);">Seclect Date</p>
+				<input id="startDateInput" type="date" th:value="${startDate}">
+				<input id="endDateInput" type="date" th:value="${endDate}">
+			</form>
+		</div>
+		<table class="table" style="height: auto; background-color: var(--table-bg)">
+			<thead>
+				<tr>
+					<th scope="col">Tên sản phẩm</th>
+					<th scope="col">Tổng số lượng bán</th>
+					<th scope="col">Giá sản phẩm (vnd)</th>
+					<th scope="col">Ngày mua hàng</th>
+					<th scope="col">Tổng thu (vnd)</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="order : ${listOrders}">
+					<td th:text="${order[0]}"></td>
+					<td th:text="${order[1]}"></td>
+					<td th:text="${#numbers.formatDecimal(order[3], 0, 'COMMA', 0, 'POINT')}"></td>
+					<td th:text="${order[5]}"></td>
+					<td th:text="${#numbers.formatDecimal(order[4], 0, 'COMMA', 0, 'POINT')}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<input hidden th:value="${thang1}" id="thang1Chart">
+		<input th:value="${thang2}" id="thang2Chart" hidden>
+		<input th:value="${thang3}" id="thang3Chart" hidden>
+		<input th:value="${thang4}" id="thang4Chart" hidden>
+		<input th:value="${thang5}" id="thang5Chart" hidden>
+		<input th:value="${thang6}" id="thang6Chart" hidden>
+		<input th:value="${thang7}" id="thang7Chart" hidden>
+		<input th:value="${thang8}" id="thang8Chart" hidden>
+		<input th:value="${thang9}" id="thang9Chart" hidden>
+		<input th:value="${thang10}" id="thang10Chart" hidden>
+		<input th:value="${thang11}" id="thang11Chart" hidden>
+		<input th:value="${thang12}" id="thang12Chart" hidden>
+		<input th:value="${year}" id="year" hidden>
+		<div id="myChart" style="width:100%; height:500px;"></div>
+	</div>
+	<script th:inline="javascript">
+		document.getElementById('startDateInput').addEventListener('change', function () {
+			var startDate = this.value;
+			var endDate = document.getElementById('endDateInput').value;
+			window.location.href = '/adm/thongke?startDate=' + startDate + '&endDate=' + endDate;
+		});
+
+		document.getElementById('endDateInput').addEventListener('change', function () {
+			var endDate = this.value;
+			var startDate = document.getElementById('startDateInput').value;
+			window.location.href = '/adm/thongke?startDate=' + startDate + '&endDate=' + endDate;
+		});
+	</script>
+
+	<script>
+		google.charts.load('current', {packages: ['corechart']});
+		google.charts.setOnLoadCallback(drawChart);
+
+		var thang1Chart = document.getElementById("thang1Chart");
+		var thang2Chart = document.getElementById("thang2Chart");
+		var thang3Chart = document.getElementById("thang3Chart");
+		var thang4Chart = document.getElementById("thang4Chart");
+		var thang5Chart = document.getElementById("thang5Chart");
+		var thang6Chart = document.getElementById("thang6Chart");
+		var thang7Chart = document.getElementById("thang7Chart");
+		var thang8Chart = document.getElementById("thang8Chart");
+		var thang9Chart = document.getElementById("thang9Chart");
+		var thang10Chart = document.getElementById("thang10Chart");
+		var thang11Chart = document.getElementById("thang11Chart");
+		var thang12Chart = document.getElementById("thang12Chart");
+		var yearinput = document.getElementById("year");
+
+		function drawChart() {
+			// Convert thang1Chart.value to a number
+			var thang1 = parseFloat(thang1Chart.value);
+			var thang2 = parseFloat(thang2Chart.value);
+			var thang3 = parseFloat(thang3Chart.value);
+			var thang4 = parseFloat(thang4Chart.value);
+			var thang5 = parseFloat(thang5Chart.value);
+			var thang6 = parseFloat(thang6Chart.value);
+			var thang7 = parseFloat(thang7Chart.value);
+			var thang8 = parseFloat(thang8Chart.value);
+			var thang9 = parseFloat(thang9Chart.value);
+			var thang10 = parseFloat(thang10Chart.value);
+			var thang11 = parseFloat(thang11Chart.value);
+			var thang12 = parseFloat(thang12Chart.value);
+			var year = parseFloat(yearinput.value);
+			// Set Data
+			const data = google.visualization.arrayToDataTable([
+
+				['Month', 'Total Price'],
+				[1, thang11], [2, thang2], [3, thang3], [4, thang4], [5, thang5],
+				[6, thang6], [7, thang7], [8, thang8], [9, thang9], [10, thang10],
+				[11, thang11], [12, thang12]
+				// Add more months as needed
+			]);
+
+			// Set Options
+			const options = {
+				title: 'Thống kê doanh thu năm ' + year,
+				hAxis: {title: 'Month'},
+				vAxis: {title: 'Total Price'},
+				legend: 'none'
+			};
+
+			// Draw
+			const chart = new google.visualization.LineChart(document.getElementById('myChart'));
+			chart.draw(data, options);
+		}
+
+	</script>
+</body>
+
+</html>

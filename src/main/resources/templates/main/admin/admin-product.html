@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+th:replace="~{main/layout/admin.html::areas(~{::body})}">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>o</title>
+</head>
+
+<body>	 
+	<div class="products-watches__table products-table">
+	 <div style="float: right; margin-right: 50px;">
+        <input type="text" id="searchInput" placeholder="Enter keyword..." style="width: 500px;"/>
+        <button onclick="searchProducts()">Search</button>
+    </div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Image</th>
+					<th scope="col">Product Name</th>
+					<th scope="col">Price (vnd)</th>
+					<th scope="col">Quantity</th>
+					<th scope="col">Brand</th>
+					<th scope="col">Category</th>
+					<th scope="col">Gender</th>
+					<th>Edit</th>
+				</tr>
+			</thead>
+			<tbody id="productTableBody">
+				<tr th:each="product : ${listProductAdmin}">
+					<td class="product-image-display flex-row"><img th:src="@{|/image/${product.image}|}" alt="Image" width="50px" height="50px"/></td>
+					<td th:text="${product.name}"></td>
+					<td th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}"></td>
+					<td th:text="${product.quantity}"></td>
+					<td th:text="${product.brand.name}"></td>
+					<td th:text="${product.categorizes.name}"></td>
+					<td th:text="${product.gender.gender}"></td>
+					<td><a th:href="@{|/adm/editproduct/${product.productsId}|}" class="flex-row">Edit <i class="fa-solid fa-pen-to-square" style="color: #000000;"></i></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="product-nav flex-row">
+		<div class="product-footer__page-index">
+			page index: <span class="product-index-of"><span th:text="${productPage.number + 1}"></span> of <span th:text="${productPage.totalPages + 1}"></span> pages</span>
+		</div>
+		<div th:if="${productPage.totalPages > 1}">
+			<ul class="pagination flex-row">
+				<li th:if="${productPage.hasPrevious}" class="page-item">
+					<a th:href="@{|/adm/product?page=1|}" class="page-link"><i
+                      class="fa-solid fa-backward-step"
+                      style="color: #000000"
+                    ></i></a>
+				</li>
+				<li th:if="${productPage.hasPrevious}" class="page-item">
+					<a th:href="@{|/adm/product?page=${productPage.number - 1}|}" class="page-link"><i class="fa-solid fa-backward" style="color: #000000"></i></a>
+				</li>
+				<li>
+					<a th:href="@{|/adm/product?page=${productPage.number + 1}|}" class="page-link"><i class="fa-solid fa-forward" style="color: #000000"></i></a>
+				</li>
+				<li th:if="${productPage.hasNext}" class="page-item">
+					<a th:href="@{|/adm/product?page=${productPage.totalPages}|}" class="page-link"> <i
+                      class="fa-solid fa-forward-step"
+                      style="color: #000000"
+                    ></i></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+ <script>
+    function searchProducts() {
+        var keyword = document.getElementById("searchInput").value;
+        window.location.href = "/adm/product?page=0&keyword=" + keyword;
+    }
+</script>
+</body>
+
+</html>

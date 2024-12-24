@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>anh vi tester</title>
+	<link rel="stylesheet" href="/css/reset.css" />
+	<link rel="stylesheet" href="/css/admin.css" />
+	<link rel="stylesheet" href="/css/responsive.css" />
+	<!--  -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<script src="https://kit.fontawesome.com/2016f2764d.js" crossorigin="anonymous"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+		rel="stylesheet" />
+</head>
+
+<body>
+	<div class="container flex-row">
+		<input id="check-side-bar" type="checkbox" />
+		<div class="side-bar">
+			<div class="menu flex-column">
+				<div class="menu-logo">logo</div>
+				<div class="opt-title">
+					<p>DASHBOARDS</p>
+					<span>Chào ngài </span><span th:text="${session.user.fullName}"></span>
+				</div>
+				<div class="menu-product menu-opt-margin flex-column">
+					<a th:href="@{/adm/product}" class="flex-row" ><i class="fa-solid fa-boxes-stacked"
+							style="color: #fff"></i><span>Products</span>
+					</a>
+					
+				</div>
+			
+				<div class="menu-image menu-opt menu-opt-margin flex-column">
+					<a href="#" class="flex-row" data-target="#image"><i class="fa-solid fa-images"
+							style="color: #000000"></i><span>Image</span></a>
+				</div>
+				
+				<div class="menu-user menu-opt menu-opt-margin">
+					<a href="#" class="flex-row" data-target="#users"><i class="fa-solid fa-users"
+							style="color: #000000"></i><span>User
+							Account</span></a>
+				</div>
+				<div class="menu-bill menu-opt menu-opt-margin">
+					<a href="#" class="flex-row" data-target="#bill"><i class="fa-solid fa-money-bills"
+							style="color: #000000"></i><span>Bill</span></a>
+				</div>
+				<div class="menu-revenue menu-opt menu-opt-margin">
+					<a href="#" class="flex-row" data-target="#revenue"><i class="fa-solid fa-wallet"
+							style="color: #000000"></i><span>Revenue</span></a>
+				</div>
+				<div class="menu-discount menu-opt menu-opt-margin">
+					<a href="#" class="flex-row" data-target="#discounts"><i class="fa-solid fa-tags"
+							style="color: #000000"></i><span>Discounts</span></a>
+				</div>
+				<div class="opt-title">
+					<p>ADMIN</p>
+					<span>change your account</span>
+				</div>
+				<div class="menu-admin menu-opt menu-opt-margin">
+					<a href="#" class="flex-row" data-target="#admin"><i class="fa-solid fa-user"
+							style="color: #000000"></i><span>Account
+							Info</span></a>
+				</div>
+				<div class="menu-all-admin menu-opt menu-opt-margin">
+					<a href="#" class="flex-row" data-target="#all-admin"><i class="fa-solid fa-address-book"
+							style="color: #000000"></i><span>Admin
+							Member</span></a>
+				</div>
+				<div class="opt-title">
+					<p>THEME COLOR</p>
+					<span>change website color</span>
+				</div>
+				<div class="menu-theme-color menu-opt menu-opt-margin" style="color: #fff">
+					<div class="menu-user menu-opt menu-opt-margin">
+						<button href="#" class="flex-row" id="light-theme-btn" onclick="lightMode()">
+							<i class="fa-solid fa-sun" style="color: #000000"></i> <span>Light
+								theme</span>
+						</button>
+					</div>
+					<div class="menu-use menu-opt menu-opt-margin">
+						<button href="#" class="flex-row" id="dark-theme-btn" onclick="darkMode()">
+							<i class="fa-solid fa-moon" style="color: #000000"></i> <span>Dark
+								theme</span>
+						</button>
+					</div>
+					<script>
+						let element = document.body;
+						function lightMode() {
+							element.classList.add("light-mode");
+							element.classList.remove("dark-mode");
+						}
+						function darkMode() {
+							element.classList.remove("light-mode");
+							element.classList.add("dark-mode");
+						}
+					</script>
+				</div>
+			</div>
+		</div>
+		<main class="flex-column">
+			<header class="flex-row">
+				<div class="header-icon">
+					<label for="check-side-bar" class="flex-row"> <i class="fa-solid fa-bars"
+							style="color: #000000"></i>
+					</label>
+				</div>
+				<div class="header-admin flex-row">
+					<div class="header-admin__name">user name</div>
+					<div class="header-admin__logout">
+						<label for="check-side-bar"> <i class="fa-solid fa-arrow-right-from-bracket"
+								style="color: #000000"></i>
+						</label>
+					</div>
+				</div>
+			</header>
+			<div class="main-content">
+				<div id="products" class="section flex-column">
+					<div class="products-menu flex-row">
+						<a href="#" data-target="#watches">watches</a> <a href="#" data-target="#bracelet">bracelet</a>
+						<a href="#" data-target="#ring">ring</a>
+					</div>
+					<div id="watches" class="products-watches products-section">
+						<div class="product-watches__header section-header flex-row-center">
+							<p class="flex-row-center">
+								watches controller table <i class="fa-regular fa-clock" style="color: #ffffff"></i>
+							</p>
+							<div class="section-header-find-add flex-row-center">
+								<label class="find-container" for="watches-find"> <i
+										class="fa-solid fa-magnifying-glass" style="color: #000000"></i>
+									<input id="watches-find" type="text" placeholder="search product" />
+								</label>
+								<button class="flex-row-center">
+									add <i class="fa-solid fa-plus" style="color: #000000"></i>
+								</button>
+							</div>
+						</div>
+						<div class="products-watches__table products-table">
+
+						</div>
+
+					</div>
+					<div id="bracelet" class="products-bracelet products-section">
+						<div class="product-watches__header section-header flex-row-center">
+							<p class="flex-row-center">
+								bracelet controller table <i class="fa-solid fa-ring" style="color: #ffffff"></i>
+							</p>
+							<div class="section-header-find-add flex-row-center">
+								<label class="find-container" for="bracelet-find"> <i
+										class="fa-solid fa-magnifying-glass" style="color: #000000"></i>
+									<input id="bracelet-find" type="text" placeholder="search product" />
+								</label>
+								<button class="flex-row-center">
+									add <i class="fa-solid fa-plus" style="color: #000000"></i>
+								</button>
+							</div>
+						</div>
+						<div class="products-watches__table products-table">
+							<table>
+								<thead>
+									<tr>
+										<th>Image</th>
+										<th>
+											<button>
+												<span>Name</span> <i class="fa-solid fa-arrow-up-wide-short"
+													style="color: #ffffff"></i>
+											</button>
+										</th>
+										<th>Brand</th>
+										<th>Price</th>
+										<th>Active</th>
+										<th>Details</th>
+									</tr>
+								</thead>
+							</table>
+							<div class="watches-body flex-column products-body">
+								<div class="watches-body__product products-body-product flex-column">
+									<div class="body-product__main-display flex-row">
+										<div class="products-body__image flex-row">
+											<img src="/image/bracelet-1.jpg" alt="" /> <span class="watches-id">watches
+												id</span>
+										</div>
+										<div class="watches-body__name product-body__name text-overflow">
+											products name products name products name products name
+											products name products name</div>
+										<div class="watches-body__brand product-body__brand text-overflow">
+											brand name</div>
+										<div class="watches-body__price product-body__price">
+											product price</div>
+										<div class="watches-body__active product-body__active">
+											<i class="fa-solid fa-xmark" style="color: #f21818"></i>
+										</div>
+										<div class="watches-body__details product-body__details flex-row">
+											<button data-target="#watches-form" onclick="toggleHiddenForm(this)">
+												<i class="fa-solid fa-caret-down" style="color: #000000"></i>
+											</button>
+										</div>
+									</div>
+									<div class="body-product__hidden-form"></div>
+								</div>
+								<div class="watches-body__product products-body-product flex-column">
+									<div class="body-product__main-display flex-row">
+										<div class="products-body__image flex-row">
+											<img src="/image/bracelet-2.jpg" alt="" /> <span class="watches-id">watches
+												id</span>
+										</div>
+										<div class="watches-body__name product-body__name text-overflow">
+											products name products name products name products name
+											products name products name</div>
+										<div class="watches-body__brand product-body__brand text-overflow">
+											brand name</div>
+										<div class="watches-body__price product-body__price">
+											product price</div>
+										<div class="watches-body__active product-body__active">
+											<i class="fa-solid fa-check" style="color: #3de600"></i>
+										</div>
+										<div class="watches-body__details product-body__details flex-row">
+											<button data-target="#watches-form" onclick="toggleHiddenForm(this)">
+												<i class="fa-solid fa-caret-down" style="color: #000000"></i>
+											</button>
+										</div>
+									</div>
+									<div class="body-product__hidden-form"></div>
+								</div>
+								<div class="watches-body__product products-body-product flex-column">
+									<div class="body-product__main-display flex-row">
+										<div class="products-body__image flex-row">
+											<img src="/image/bracelet-3.jpg" alt="" /> <span class="watches-id">watches
+												id</span>
+										</div>
+										<div class="watches-body__name product-body__name text-overflow">
+											products name products name products name products name
+											products name products name</div>
+										<div class="watches-body__brand product-body__brand text-overflow">
+											brand name</div>
+										<div class="watches-body__price product-body__price">
+											product price</div>
+										<div class="watches-body__active product-body__active">
+											<i class="fa-solid fa-check" style="color: #3de600"></i>
+										</div>
+										<div class="watches-body__details product-body__details flex-row">
+											<button data-target="#watches-form" onclick="toggleHiddenForm(this)">
+												<i class="fa-solid fa-caret-down" style="color: #000000"></i>
+											</button>
+										</div>
+									</div>
+									<div class="body-product__hidden-form"></div>
+								</div>
+							</div>
+						</div>
+						<div class="products-watches__footer products-product__footer flex-row">
+							<div class="product-footer__items-per-page">
+								items per page: <select name="items-page" id="select-items">
+									<option value="1">10 items</option>
+									<option value="2">15 items</option>
+									<option value="3">20 items</option>
+								</select>
+							</div>
+							<div class="product-footer__page-index">
+								page index: <span class="product-index-of">1 of 20 pages</span>
+							</div>
+							<div class="product-footer__nav flex-row">
+								<button class="product-first">
+									<i class="fa-solid fa-backward-step" style="color: #000000"></i>
+								</button>
+								<button class="product-pre">
+									<i class="fa-solid fa-backward" style="color: #000000"></i>
+								</button>
+								<button class="product-next">
+									<i class="fa-solid fa-forward" style="color: #000000"></i>
+								</button>
+								<button class="product-last">
+									<i class="fa-solid fa-forward-step" style="color: #000000"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div id="ring" class="products-ring products-section">
+						<div class="product-ring__header section-header flex-row-center">
+							<p class="flex-row-center">
+								rings controller table <i class="fa-regular fa-gem" style="color: #ffffff"></i>
+							</p>
+							<div class="section-header-find-add flex-row-center">
+								<label class="find-container" for="rings-find"> <i class="fa-solid fa-magnifying-glass"
+										style="color: #000000"></i>
+									<input id="rings-find" type="text" placeholder="search product" />
+								</label>
+								<button class="flex-row-center">
+									add <i class="fa-solid fa-plus" style="color: #000000"></i>
+								</button>
+							</div>
+						</div>
+						<div class="products-ring__table products-table">
+							<table>
+								<thead>
+									<tr>
+										<th>Image</th>
+										<th>
+											<button>
+												<span>Name</span> <i class="fa-solid fa-arrow-up-wide-short"
+													style="color: #ffffff"></i>
+											</button>
+										</th>
+										<th>Brand</th>
+										<th>Price</th>
+										<th>Active</th>
+										<th>Details</th>
+									</tr>
+								</thead>
+							</table>
+							<div class="ring-body flex-column products-body">
+								<div class="ring-body__product products-body-product flex-column">
+									<div class="body-product__main-display flex-row">
+										<div class="products-body__image flex-row">
+											<img src="/image/ring-1.jpeg" alt="" /> <span class="ring-id">ring id</span>
+										</div>
+										<div class="ring-body__name product-body__name text-overflow">
+											products name products name products name products name
+											products name products name</div>
+										<div class="ring-body__brand product-body__brand text-overflow">
+											brand name</div>
+										<div class="ring-body__price product-body__price">
+											product price</div>
+										<div class="ring-body__active product-body__active">
+											<i class="fa-solid fa-xmark" style="color: #f21818"></i>
+										</div>
+										<div class="ring-body__details product-body__details flex-row">
+											<button data-target="#ring-form" onclick="toggleHiddenForm(this)">
+												<i class="fa-solid fa-caret-down" style="color: #000000"></i>
+											</button>
+										</div>
+									</div>
+									<div class="body-product__hidden-form"></div>
+								</div>
+								<div class="ring-body__product products-body-product flex-column">
+									<div class="body-product__main-display flex-row">
+										<div class="products-body__image flex-row">
+											<img src="/image/ring-2.jpeg" alt="" /> <span class="ring-id">ring id</span>
+										</div>
+										<div class="ring-body__name product-body__name text-overflow">
+											products name products name products name products name
+											products name products name</div>
+										<div class="ring-body__brand product-body__brand text-overflow">
+											brand name</div>
+										<div class="ring-body__price product-body__price">
+											product price</div>
+										<div class="ring-body__active product-body__active">
+											<i class="fa-solid fa-check" style="color: #3de600"></i>
+										</div>
+										<div class="ring-body__details product-body__details flex-row">
+											<button data-target="#ring-form" onclick="toggleHiddenForm(this)">
+												<i class="fa-solid fa-caret-down" style="color: #000000"></i>
+											</button>
+										</div>
+									</div>
+									<div class="body-product__hidden-form"></div>
+								</div>
+								<div class="ring-body__product products-body-product flex-column">
+									<div class="body-product__main-display flex-row">
+										<div class="products-body__image flex-row">
+											<img src="/image/ring-3.jpeg" alt="" /> <span class="ring-id">ring id</span>
+										</div>
+										<div class="ring-body__name product-body__name text-overflow">
+											products name products name products name products name
+											products name products name</div>
+										<div class="ring-body__brand product-body__brand text-overflow">
+											brand name</div>
+										<div class="ring-body__price product-body__price">
+											product price</div>
+										<div class="ring-body__active product-body__active">
+											<i class="fa-solid fa-check" style="color: #3de600"></i>
+										</div>
+										<div class="ring-body__details product-body__details flex-row">
+											<button data-target="#ring-form" onclick="toggleHiddenForm(this)">
+												<i class="fa-solid fa-caret-down" style="color: #000000"></i>
+											</button>
+										</div>
+									</div>
+									<div class="body-product__hidden-form"></div>
+								</div>
+							</div>
+						</div>
+						<div class="products-ring__footer products-product__footer flex-row">
+							<div class="product-footer__items-per-page">
+								items per page: <select name="items-page" id="select-items">
+									<option value="1">10 items</option>
+									<option value="2">15 items</option>
+									<option value="3">20 items</option>
+								</select>
+							</div>
+							<div class="product-footer__page-index">
+								page index: <span class="product-index-of">1 of 20 pages</span>
+							</div>
+							<div class="product-footer__nav flex-row">
+								<button class="product-first">
+									<i class="fa-solid fa-backward-step" style="color: #000000"></i>
+								</button>
+								<button class="product-pre">
+									<i class="fa-solid fa-backward" style="color: #000000"></i>
+								</button>
+								<button class="product-next">
+									<i class="fa-solid fa-forward" style="color: #000000"></i>
+								</button>
+								<button class="product-last">
+									<i class="fa-solid fa-forward-step" style="color: #000000"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="image" class="section">
+					<div class="section-header flex-row-center">
+						<p class="flex-row-center">Product Image Manager</p>
+						<div class="section-header-find-add flex-row-center">
+							<label class="find-container" for="img-find"> <i class="fa-solid fa-magnifying-glass"
+									style="color: #000000"></i>
+								<input id="img-find" type="text" placeholder="search product" />
+							</label>
+						</div>
+					</div>
+					<div class="image-table">
+						<table>
+							<thead>
+								<tr>
+									<th>Image</th>
+									<th>Product ID</th>
+									<th>Name</th>
+									<th>See more</th>
+								</tr>
+							</thead>
+						</table>
+						<div class="image-body flex-column">
+							<div class="image-body__content flex-column">
+								<div class="image-main-display flex-row">
+									<div class="image-body__content-image">
+										<img src="/image/cate-5.jpeg" alt="" />
+									</div>
+									<div class="image-body__content-id">product id</div>
+									<div class="image-body__content-name">product name</div>
+									<div class="image-body__content-details flex-row">
+										<button data-target="#image-form" onclick="toggleHiddenImageForm(this)">
+											<i class="fa-solid fa-caret-down" style="color: #000000"></i>
+										</button>
+									</div>
+								</div>
+								<div class="hiddenImageForm"></div>
+							</div>
+							<div class="image-body__content flex-column">
+								<div class="image-main-display flex-row">
+									<div class="image-body__content-image">
+										<img src="/image/cate-5.jpeg" alt="" />
+									</div>
+									<div class="image-body__content-id">product id</div>
+									<div class="image-body__content-name">product name</div>
+									<div class="image-body__content-details flex-row">
+										<button data-target="#image-form" onclick="toggleHiddenImageForm(this)">
+											<i class="fa-solid fa-caret-down" style="color: #000000"></i>
+										</button>
+									</div>
+								</div>
+								<div class="hiddenImageForm"></div>
+							</div>
+							<div class="image-body__content flex-column">
+								<div class="image-main-display flex-row">
+									<div class="image-body__content-image">
+										<img src="/image/cate-5.jpeg" alt="" />
+									</div>
+									<div class="image-body__content-id">product id</div>
+									<div class="image-body__content-name">product name</div>
+									<div class="image-body__content-details flex-row">
+										<button data-target="#image-form" onclick="toggleHiddenImageForm(this)">
+											<i class="fa-solid fa-caret-down" style="color: #000000"></i>
+										</button>
+									</div>
+								</div>
+								<div class="hiddenImageForm"></div>
+							</div>
+							<div class="image-body__content flex-column">
+								<div class="image-main-display flex-row">
+									<div class="image-body__content-image">
+										<img src="/image/cate-5.jpeg" alt="" />
+									</div>
+									<div class="image-body__content-id">product id</div>
+									<div class="image-body__content-name">product name</div>
+									<div class="image-body__content-details flex-row">
+										<button data-target="#image-form" onclick="toggleHiddenImageForm(this)">
+											<i class="fa-solid fa-caret-down" style="color: #000000"></i>
+										</button>
+									</div>
+								</div>
+								<div class="hiddenImageForm"></div>
+							</div>
+						</div>
+					</div>
+					<div class="products-product__footer flex-row">
+						<div class="product-footer__page-index">
+							Page: <span class="product-index-of">[[${currentPage +
+								1}]] of [[${totalPages}]] pages</span>
+						</div>
+						<div class="pagination">
+							<th:block th:each="page, stat : ${#numbers.sequence(0, totalPages - 1)}">
+								<span th:if="${currentPage} == ${stat.index}" th:text="${stat.index + 1}"></span>
+								<a th:if="${currentPage} != ${stat.index}" th:href="@{'/adm?page=' + ${stat.index}}"
+									th:text="${stat.index + 1}"></a>
+							</th:block>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+
+
+
+				<div id="users" class="section">
+					<div class="section-header flex-row-center">
+						<p class="flex-row-center">USER ACCOUNTS MANAGER</p>
+						<div class="section-header-find-add flex-row-center">
+							<label class="find-container" for="users-find"> <i class="fa-solid fa-magnifying-glass"
+									style="color: #000000"></i>
+								<input id="searchInput" type="text" placeholder="SEARCH USER" />
+							</label>
+							<button class="flex-row-center">Find</button>
+							<button class="flex-row-center">
+								add <i class="fa-solid fa-plus" style="color: #000000"></i>
+							</button>
+						</div>
+					</div>
+					<div class="user-table" id="myTable">
+						<table>
+							<thead>
+								<tr>
+									<th class="col-1">User Id</th>
+									<th class="col-3">Fullname</th>
+									<th class="col-1">Gender</th>
+									<th class="col-2">Email</th>
+									<th class="col-2">Address</th>
+									<th class="col-3">Phone</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="user : ${users}">
+									<td th:text="${user.userId}"></td>
+									<td th:text="${user.fullName}"></td>
+									<td th:if="${user.gender} == true">Nam</td>
+									<td th:if="${user.gender} != true">Nữ</td>
+									<td th:text="${user.email}"></td>
+									<td th:text="${user.address}"></td>
+									<td th:text="${user.phone}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="products-product__footer flex-row">
+						<div class="product-footer__page-index">
+							Page: <span class="product-index-of">[[${currentPage +
+								1}]] of [[${totalPages}]] pages</span>
+						</div>
+						<div class="pagination">
+							<th:block th:each="page, stat : ${#numbers.sequence(0, totalPages - 1)}">
+								<span th:if="${currentPage} == ${stat.index}" th:text="${stat.index + 1}"></span>
+								<a th:if="${currentPage} != ${stat.index}" th:href="@{'/adm?page=' + ${stat.index}}"
+									th:text="${stat.index + 1}"></a>
+							</th:block>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+				<div id="bill" class="section">
+					<div class="section-header flex-row-center">
+						<p class="flex-row-center">User Bill Manager</p>
+						<div class="section-header-find-add flex-row-center">
+							<label class="find-container" for="bill-find"> <i class="fa-solid fa-magnifying-glass"
+									style="color: #000000"></i>
+								<input id="bill-find" type="text" placeholder="search product" />
+							</label>
+						</div>
+						<div class="section-header__date-time flex-row">
+							<input type="date" /> <input type="date" /> <a href="#">Find</a>
+						</div>
+					</div>
+					<div class="bill-table">
+						<table style="text-align: center;">
+							<thead>
+								<tr>
+									<th>Bill id</th>
+									<th>User id</th>
+									<th>Name</th>
+									<th>Email</th>
+									<th>Date</th>
+									<th>Total price</th>
+									<th>See more</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="order : ${orderList}">
+									<td th:text="${order.orderId}"></td>
+									<td th:text="${order.user.userId}"></td>
+									<td th:text="${order.user.fullName}"></td>
+									<td th:text="${order.user.email}"></td>
+									<td th:text="${order.date}"></td>
+									<td th:text="${order.price}"></td>
+									<td><a type="button"
+											th:href="@{/adm/detail-order/{orderId}(orderId=${order.orderId})}">Xem</a>
+									</td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="products-product__footer flex-row">
+						<div class="product-footer__items-per-page">
+							items per page: <select name="items-page" id="select-items">
+								<option value="1">10 items</option>
+								<option value="2">15 items</option>
+								<option value="3">20 items</option>
+							</select>
+						</div>
+						<div class="product-footer__page-index">
+							page index: <span class="product-index-of">1 of 20 pages</span>
+						</div>
+						<div class="product-footer__nav flex-row">
+							<button class="product-first">
+								<i class="fa-solid fa-backward-step" style="color: #000000"></i>
+							</button>
+							<button class="product-pre">
+								<i class="fa-solid fa-backward" style="color: #000000"></i>
+							</button>
+							<button class="product-next">
+								<i class="fa-solid fa-forward" style="color: #000000"></i>
+							</button>
+							<button class="product-last">
+								<i class="fa-solid fa-forward-step" style="color: #000000"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div id="revenue" class="section">
+					<div class="section-header flex-row-center">
+						<p class="flex-row-center">Products revenue manager</p>
+						<div class="section-header-find-add flex-row-center">
+							<label class="find-container" for="revenue-find"> <i class="fa-solid fa-magnifying-glass"
+									style="color: #000000"></i>
+								<input id="revenue-find" type="text" placeholder="search product" />
+							</label>
+						</div>
+						<div class="section-header__date-time flex-row">
+							<input type="date" /> <input type="date" />
+							<button>Find</button>
+						</div>
+					</div>
+					<div class="revenue-table">
+						<table>
+							<thead>
+								<tr>
+									<th>Image</th>
+									<th>Name</th>
+									<th>Base price</th>
+									<th>Quantity</th>
+									<th>Date</th>
+									<th>User name</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><img src="/image/best_seller1.jpg" alt="product-image" />
+									</td>
+									<td>Omega...</td>
+									<td>10.000.000$</td>
+									<td>2</td>
+									<td>2023-10-20</td>
+									<td>ViGay</td>
+								</tr>
+								<tr>
+									<td><img src="/image/best_seller1.jpg" alt="product-image" />
+									</td>
+									<td>Omega...</td>
+									<td>10.000.000$</td>
+									<td>2</td>
+									<td>2023-10-20</td>
+									<td>ViGay</td>
+								</tr>
+								<tr>
+									<td><img src="/image/best_seller1.jpg" alt="product-image" />
+									</td>
+									<td>Omega...</td>
+									<td>10.000.000$</td>
+									<td>2</td>
+									<td>2023-10-20</td>
+									<td>ViGay</td>
+								</tr>
+								<tr>
+									<td><img src="/image/best_seller1.jpg" alt="product-image" />
+									</td>
+									<td>Omega...</td>
+									<td>10.000.000$</td>
+									<td>2</td>
+									<td>2023-10-20</td>
+									<td>ViGay</td>
+								</tr>
+								<tr>
+									<td><img src="/image/best_seller1.jpg" alt="product-image" />
+									</td>
+									<td>Omega...</td>
+									<td>10.000.000$</td>
+									<td>2</td>
+									<td>2023-10-20</td>
+									<td>ViGay</td>
+								</tr>
+								<tr>
+									<td><img src="/image/best_seller1.jpg" alt="product-image" />
+									</td>
+									<td>Omega...</td>
+									<td>10.000.000$</td>
+									<td>2</td>
+									<td>2023-10-20</td>
+									<td>ViGay</td>
+								</tr>
+								<tr>
+									<td><img src="/image/best_seller1.jpg" alt="product-image" />
+									</td>
+									<td>Omega...</td>
+									<td>10.000.000$</td>
+									<td>2</td>
+									<td>2023-10-20</td>
+									<td>ViGay</td>
+								</tr>
+								<tr>
+									<td><img src="/image/best_seller2.jpg" alt="product-image" />
+									</td>
+									<td>Omega...</td>
+									<td>10.000.000$</td>
+									<td>2</td>
+									<td>2023-10-20</td>
+									<td>ViGay</td>
+								</tr>
+								<tr>
+									<td><img src="/image/best_seller2.jpg" alt="product-image" />
+									</td>
+									<td>Omega...</td>
+									<td>10.000.000$</td>
+									<td>2</td>
+									<td>2023-10-20</td>
+									<td>ViGay</td>
+								</tr>
+								<tr>
+									<td><img src="/image/best_seller2.jpg" alt="product-image" />
+									</td>
+									<td>Omega...</td>
+									<td>10.000.000$</td>
+									<td>2</td>
+									<td>2023-10-20</td>
+									<td>ViGay</td>
+								</tr>
+								<tr>
+									<td><img src="/image/best_seller2.jpg" alt="product-image" />
+									</td>
+									<td>Omega...</td>
+									<td>10.000.000$</td>
+									<td>2</td>
+									<td>2023-10-20</td>
+									<td>ViGay</td>
+								</tr>
+								<tr>
+									<td><img src="/image/best_seller2.jpg" alt="product-image" />
+									</td>
+									<td>Omega...</td>
+									<td>10.000.000$</td>
+									<td>2</td>
+									<td>2023-10-20</td>
+									<td>ViGay</td>
+								</tr>
+								<tr>
+									<td><img src="/image/best_seller2.jpg" alt="product-image" />
+									</td>
+									<td>Omega...</td>
+									<td>10.000.000$</td>
+									<td>2</td>
+									<td>2023-10-20</td>
+									<td>ViGay</td>
+								</tr>
+								<tr>
+									<td><img src="/image/best_seller3.jpg" alt="product-image" />
+									</td>
+									<td>Omega...</td>
+									<td>10.000.000$</td>
+									<td>2</td>
+									<td>2023-10-20</td>
+									<td>ViGay</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="products-product__footer flex-row">
+						<div class="product-footer__items-per-page">
+							items per page: <select name="items-page" id="select-items">
+								<option value="1">10 items</option>
+								<option value="2">15 items</option>
+								<option value="3">20 items</option>
+							</select>
+						</div>
+						<div class="product-footer__page-index">
+							page index: <span class="product-index-of">1 of 20 pages</span>
+						</div>
+						<div class="product-footer__nav flex-row">
+							<button class="product-first">
+								<i class="fa-solid fa-backward-step" style="color: #000000"></i>
+							</button>
+							<button class="product-pre">
+								<i class="fa-solid fa-backward" style="color: #000000"></i>
+							</button>
+							<button class="product-next">
+								<i class="fa-solid fa-forward" style="color: #000000"></i>
+							</button>
+							<button class="product-last">
+								<i class="fa-solid fa-forward-step" style="color: #000000"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div id="discounts" class="section">
+					<div class="section-header flex-row-center">
+						<p class="flex-row-center">Discounts Products Controller</p>
+					</div>
+					<div class="discounts-table">
+						<table>
+							<thead>
+								<tr>
+									<th>Code</th>
+									<th>Discount Amount</th>
+									<th>Date Start</th>
+									<th>Date End</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="discount : ${discountsProductsList}">
+									<td th:text="${discount.discountsProductsId}"></td>
+									<td th:text="${discount.discountAmount}"></td>
+									<td th:text="${#dates.format(discount.dateStart, 'yyyy-MM-dd')}"></td>
+									<td th:text="${#dates.format(discount.dateEnd, 'yyyy-MM-dd')}"></td>
+
+									<td><button type="button" class="btn edit-button-DiscountProduct"
+											th:data-idDiscountProduct="${discount.discountsProductsId}">
+											<i class="fa fa-eye" aria-hidden="true"></i>Xem
+										</button></td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+					<div class="discounts-form">
+						<form action="" th:object="${discountsProducts}" method="post" class="flex-row">
+							<label class="flex-column"> Code <input name="discountsProductsId" type="text"
+									th:field="*{discountsProductsId}" placeholder="Code..." />
+							</label> <label class="flex-column"> Discount Amount <input name="discountAmount"
+									type="text" th:field="*{discountAmount}" placeholder="Discount Amount" />
+							</label> <label class="flex-column"> Discount Start Time <input name="dateStart"
+									id="dateStartInput" type="date" th:field="*{dateStart}" />
+							</label> <label class="flex-column"> Discount End Time <input name="dateEnd"
+									id="dateEndInput" type="date" th:field="*{dateEnd}" />
+							</label>
+							<button formaction="/adm/action-add/discount-product" id="BtnAddDiscountProduct"
+								style="display: inline-block;">Add
+								Discount</button>
+							<button formaction="/adm/action-update/discount-product" id="BtnUpdateDiscountProduct"
+								style="display: none;">Update
+								Discount</button>
+							<button formaction="/adm/action-delete/discount-product" id="BtnDeleteDiscountProduct"
+								style="display: none; background-color: red;">Delete
+								Discount</button>
+							<button formaction="/adm" style="background-color: gray;">Refresh</button>
+						</form>
+
+					</div>
+				</div>
+				<div id="admin" class="section">
+					<div class="admin-container flex-row">
+						<img src="/image/adm-account-bg.jpeg" alt="" />
+						<form th:object="${userInfo}" action="" method="post" class="flex-column">
+							<div class="admin-form__title flex-row">Your Information</div>
+							<label class="flex-row"> <input type="text" style="font-weight: bold; color: white;"
+									th:field="*{userId}" placeholder="Account Id" />
+							</label> <label class="flex-row"> <input type="text" th:field="*{fullName}"
+									placeholder="Fullname" />
+							</label> <label class="flex-row"> <input type="text" th:field="*{email}"
+									placeholder="Email" />
+							</label> <label class="flex-row"> <input type="text" th:field="*{address}"
+									placeholder="Address" />
+							</label> <label class="flex-row"> <input type="text" th:field="*{phone}"
+									placeholder="Phone number" />
+							</label>
+							<div class="flex-row">
+								<label class="flex-row admin-form__gender">
+									<p>Male</p> <input type="radio" th:field="*{gender}" value="true" />
+								</label> <label class="flex-row admin-form__gender">
+									<p>Female</p> <input type="radio" th:field="*{gender}" value="false" />
+								</label>
+							</div>
+							<div class="admin-form__button flex-row">
+								<button onclick="clearForm(event)">Clear</button>
+								<button formaction="/adm/action-update/info-admin">Update</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div id="all-admin" class="section">
+					<div class="section-header flex-row-center">
+						<p class="flex-row-center">All Administer Member</p>
+					</div>
+					<div class="all-admin-table">
+						<table>
+							<thead>
+								<tr>
+									<th>User Id</th>
+									<th>Full Name</th>
+									<th>Gender</th>
+									<th>Email</th>
+									<th>Address</th>
+									<th>Phone</th>
+									<th>Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="adminsister : ${adminsiterList}">
+									<td th:text="${adminsister.user.userId}"></td>
+									<td th:text="${adminsister.user.fullName}"></td>
+									<td th:if="${adminsister.user.gender} == true">Nam</td>
+									<td th:if="${adminsister.user.gender} != true">Nữ</td>
+									<td th:text="${adminsister.user.email}"></td>
+									<td th:text="${adminsister.user.address}"></td>
+									<td th:text="${adminsister.user.phone}"></td>
+									<td>
+										<button>
+											<i class="fa-solid fa-delete-left" style="color: #000000"></i>
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+
+
+					<div class="section-header flex-row-center">
+						<p class="flex-row-center">All Employee Member</p>
+					</div>
+					<div class="all-admin-table">
+						<table>
+							<thead>
+								<tr>
+									<th>User Id</th>
+									<th>Full Name</th>
+									<th>Gender</th>
+									<th>Email</th>
+									<th>Address</th>
+									<th>Phone</th>
+									<th>Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="employee : ${employeeList}">
+									<td th:text="${employee.user.userId}"></td>
+									<td th:text="${employee.user.fullName}"></td>
+									<td th:if="${employee.user.gender} == true">Nam</td>
+									<td th:if="${employee.user.gender} != true">Nữ</td>
+									<td th:text="${employee.user.email}"></td>
+									<td th:text="${employee.user.address}"></td>
+									<td th:text="${employee.user.phone}"></td>
+									<td>
+										<button>
+											<i class="fa-solid fa-delete-left" style="color: #000000"></i>
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+	<script src="/js/admin.js"></script>
+	<script>
+		const sections = document.querySelectorAll(".section");
+		sections.forEach((section, index) => {
+			if (index !== 0) {
+				section.style.display = "none";
+			}
+		});
+		const sidebarLinks = document.querySelectorAll(".menu-opt a");
+		sidebarLinks.forEach((link) => {
+			link.addEventListener("click", (event) => {
+				event.preventDefault();
+				const targetSectionId = link.dataset.target;
+				sections.forEach((section) => {
+					section.style.display = "none";
+				});
+				const targetSection = document.querySelector(targetSectionId);
+				if (targetSection) {
+					targetSection.style.display = "block";
+				}
+			});
+		});
+		// products section
+		const produts_section = document.querySelectorAll(".products-section");
+		produts_section.forEach((section, index) => {
+			if (index !== 0) {
+				section.style.display = "none";
+			}
+		});
+		const sidebarLinksProducts =
+			document.querySelectorAll(".products-menu a");
+		sidebarLinksProducts.forEach((link) => {
+			link.addEventListener("click", (event) => {
+				event.preventDefault();
+				const targetSectionId = link.dataset.target;
+				produts_section.forEach((section) => {
+					section.style.display = "none";
+				});
+				const targetSection = document.querySelector(targetSectionId);
+				if (targetSection) {
+					targetSection.style.display = "block";
+				}
+			});
+		});
+
+		const formHtml = `
+  <form action="" class="flex-row">
+    <div class="form-first flex-row">
+      <div class="form-first__imageNActive flex-column">
+        <img src="/image/bracelet-1.jpg" alt="some thing goes wrong" />
+        <span class="product-status">Products Status</span>
+
+        <div class="form-first__imageNActive-checkbox flex-row">
+          <span id="product-status">Active</span>
+
+          <div class="toggle flex-row">
+            <input id="st" type="radio" name="form-radio" value="1" />
+            <input id="nd" type="radio" name="form-radio" value="2" />
+            <div class="toggle-point"></div>
+          </div>
+          <span id="product-status">Disabled</span>
+        </div>
+
+      </div>
+      <div class="form-first__info flex-row">
+        <div class="input-form">
+          <span>product id</span>
+          <input type="text" disabled />
+        </div>
+        <div class="input-form">
+          <span>product name</span>
+          <input type="text" placeholder="product name" />
+        </div>
+        <div class="input-form">
+          <span>category genders</span>
+          <select name="category-genders" id="category-genders">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Unisex">Unisex</option>
+          </select>
+        </div>
+        <div class="input-form">
+          <span>brand</span>
+          <select name="brands" id="brands">
+            <option value="0">Omega</option>
+            <option value="1">...</option>
+            <option value="2">...</option>
+          </select>
+        </div>
+        <div class="input-form">
+          <span>describle</span>
+          <textarea resize="none" name="watches-des" id="watches-des" cols="30" rows="auto" placeholder="products describle"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="form-second flex-row">
+      <div class="input-form">
+        <span>products size</span>
+        <input type="text" placeholder="size" />
+      </div>
+      <div class="input-form">
+        <span>base price</span>
+        <input type="text" placeholder="price" />
+      </div>
+      <div class="input-form">
+        <span>TAX</span>
+        <input type="text" placeholder="tax" />
+      </div>
+      <div class="input-form">
+        <span>current price</span>
+        <input type="text" disabled />
+      </div>
+      <div class="input-form">
+        <span>describle</span>
+        <select name="discounts" id="discoutns">
+          <option value="0">discounts id</option>
+          <option value="1">discounts id</option>
+          <option value="2">discounts id</option>
+        </select>
+      </div>
+    </div>
+  </form>
+  <div class="form-button flex-row">
+    <button>Delete</button>
+    <button>Update</button>
+  </div>
+`;
+		let currentHiddenForm;
+		let checkOpen = true;
+		function toggleHiddenForm(button) {
+			const product = button.closest(".products-body-product");
+			const hiddenForm = product.querySelector(".body-product__hidden-form");
+			if (checkOpen) {
+				currentHiddenForm = hiddenForm;
+				hiddenForm.innerHTML = formHtml;
+				checkOpen = false;
+			} else {
+				currentHiddenForm.innerHTML = "";
+				checkOpen = true;
+			}
+		}
+
+		const formBill = `
+      <table>
+                      <thead>
+                        <th>Imgae</th>
+                        <th>Name</th>
+                        <th>Base price</th>
+                        <th>Quantity</th>
+                        <th>Discount</th>
+                        <th>Total</th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <img src="/image/best_seller1.jpg" alt="" />
+                          </td>
+                          <td class="text-overflow">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing
+                            elit.
+                          </td>
+                          <td>5.000.000$</td>
+                          <td>2</td>
+                          <td>3%</td>
+                          <td>4.700.000$</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <img src="/image/best_seller1.jpg" alt="" />
+                          </td>
+                          <td class="text-overflow">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing
+                            elit.
+                          </td>
+                          <td>5.000.000$</td>
+                          <td>2</td>
+                          <td>3%</td>
+                          <td>4.700.000$</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <img src="/image/best_seller1.jpg" alt="" />
+                          </td>
+                          <td class="text-overflow">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing
+                            elit.
+                          </td>
+                          <td>5.000.000$</td>
+                          <td>2</td>
+                          <td>3%</td>
+                          <td>4.700.000$</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="bill-final-price">
+                      Total: <span class="final-bill">10.000.000$</span>
+                    </div>
+      `;
+		let currentHiddenBillForm;
+		let checkBillOpen = true;
+		function toggleHiddenBillForm(button) {
+			const billDisplay = button.closest(".bill-table__body-content");
+			const hiddenBillForm = billDisplay.querySelector(
+				".body-bill__hidden-form"
+			);
+			if (checkBillOpen) {
+				currentHiddenBillForm = hiddenBillForm;
+				hiddenBillForm.innerHTML = formBill;
+				checkBillOpen = false;
+			} else {
+				currentHiddenBillForm.innerHTML = "";
+				checkBillOpen = true;
+			}
+		}
+
+		const formImage = `<form action="" class="hidden-image-form flex-column">
+                      <div class="form-image__content flex-row">
+                        <div class="image-content__current-image">
+                          <img src="/image/best_seller2.jpg" alt="" />
+                        </div>
+                        <div class="image-content__change-icon">
+                          <i
+                            class="fa-solid fa-shuffle"
+                            style="color: #000000"
+                          ></i>
+                        </div>
+                        <div class="image-content__change-image">
+                          <input type="file" />
+                          <img src="/image/no-image.jpg" alt="" />
+                        </div>
+                        <div class="image-content__image-delete">
+                          <button>Delete</button>
+                        </div>
+                        <div class="image-content__image-update">
+                          <button>Update</button>
+                        </div>
+                      </div>
+                    </form>`;
+		let currentHiddenImageForm;
+		let checkImageOpen = true;
+		function toggleHiddenImageForm(button) {
+			const imageDisplay = button.closest(".image-body__content");
+			const hiddenImageForm = imageDisplay.querySelector(".hiddenImageForm");
+			if (checkImageOpen) {
+				currentHiddenImageForm = hiddenImageForm;
+				hiddenImageForm.innerHTML = formImage;
+				checkImageOpen = false;
+			} else {
+				currentHiddenImageForm.innerHTML = "";
+				checkImageOpen = true;
+			}
+		}
+
+
+	</script>
+
+	<script>
+		var input = document.getElementById("searchInput");
+		var table = document.getElementById("myTable");
+		var rows = table.getElementsByTagName("tr");
+
+		// Định nghĩa hàm thực hiện tìm kiếm và cập nhật bảng
+		function searchAndUpdateTable() {
+			var searchText = input.value.toLowerCase(); // Nội dung cần tìm kiếm
+
+			// Duyệt qua từng hàng của bảng (bắt đầu từ hàng thứ hai)
+			for (var i = 1; i < rows.length; i++) {
+				var row = rows[i];
+				var cells = row.getElementsByTagName("td");
+				var found = false; // Biến để xác định xem có kết quả tìm kiếm hay không
+
+				// Duyệt qua từng ô dữ liệu trong hàng
+				for (var j = 0; j < cells.length; j++) {
+					var cell = cells[j];
+
+					// Kiểm tra xem nội dung trong ô dữ liệu có chứa từ khóa tìm kiếm không
+					if (cell) {
+						var cellText = cell.textContent.toLowerCase();
+						if (cellText.indexOf(searchText) > -1) {
+							found = true;
+							break; // Nếu tìm thấy, thoát khỏi vòng lặp
+						}
+					}
+				}
+
+				// Ẩn hoặc hiển thị hàng dựa trên kết quả tìm kiếm
+				if (found) {
+					row.style.display = "";
+				} else {
+					row.style.display = "none";
+				}
+			}
+		}
+
+		input.addEventListener("input", searchAndUpdateTable);
+	</script>
+
+</body>
+
+</html>

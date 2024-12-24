@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="login-container .custom-background">
+
+      <div class="login-form register-form" id="register">
+        <h1> Register</h1>
+        <p th:if="${errorMessage}" style="color: red" th:text="${errorMessage}"></p>
+         <form th:action="@{/register}" method="post">
+        <input 
+        	type="text" 
+        	id="userId"
+            name="userId"
+            required
+        	placeholder="User" />
+        
+        <input 
+        	type="password" 
+        	id="password"
+            name="password"
+            required
+        	placeholder="Password" />
+        
+        <input 
+        	type="password" 
+        	id="confirmPassword"
+            name="confirmPassword"
+            required
+        	placeholder="Confirm Password" />
+        
+        <input 
+        	type="text"
+            id="email"
+            name="email"
+            required
+            placeholder="Email"/>
+            
+        <input 
+        	type="text" 
+        	id="fullName"
+            name="fullName"
+            required
+        	placeholder="Fullname" />
+        
+        <input 
+        	type="text" 
+        	id="phone"
+            name="phone"
+            required
+        	placeholder="Phone" />
+        
+        <input 
+        	type="text"
+        	id="address"
+            name="address"
+            required
+        	placeholder="Address" />
+        
+
+        <div class="register-gender">
+          <input name="register-gender-radio" id="male" type="radio" />
+          <label for="male"> Male </label>
+          <input name="register-gender-radio" id="female" type="radio" />
+          <label for="female"> Female </label>
+        </div>
+        <div class="login-button">
+          <button type="submit">Register</button>
+        </div>
+        <p>back to login form? <a href="/main/user/login">Login</a></p>
+        </form>
+      </div>
+    </div>
+  </body>
+
+</html>
